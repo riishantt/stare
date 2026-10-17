@@ -20,6 +20,8 @@ def settings(tmp_path, monkeypatch):
     monkeypatch.setenv("STARE_LLM_PROVIDER", "offline")
     monkeypatch.setenv("STARE_COURTLISTENER_ENABLED", "false")  # tests never depend on the network
     monkeypatch.setenv("STARE_CAP_LOOKUP_ENABLED", "false")
+    for key in ("STARE_COURTLISTENER_TOKEN", "STARE_LLM_API_KEY"):  # private keys in backend/.env.local stay unused
+        monkeypatch.setenv(key, "")
     _reset_caches()
     yield get_settings()
     _reset_caches()

@@ -6,6 +6,9 @@ __pycache__/
 .ruff_cache/
 *.egg-info/
 backend/.env
+backend/.env.local
+.env.local
+*.env.local
 
 # Node
 node_modules/
@@ -20,3 +23,11 @@ data/uploads/
 data/refresh.json
 
 .DS_Store
+
+# Deliverable build intermediates
+deliverables/reports/build/tmp/
+deliverables/team-pack/build/node_modules/
+backend/STARE-demo-run*.docx
+
+# Reports, team files and earlier drafts stay on the laptop (they contain student IDs)
+deliverables/

@@ -112,10 +112,15 @@ cd frontend && npm run build              # type check + production build
 Every agent and every Firewall gate has its own module and unit tests (NFR-08). The Mata fixture,
 the approval gates and the export check are covered by automated tests.
 
+GitHub Actions runs both on every push (`.github/workflows/ci.yml`). The **Evaluate** workflow
+(`.github/workflows/evaluate.yml`, started from the Actions tab) runs the full evaluation in the cloud on
+PostgreSQL 16 + pgvector and with the fastembed (bge-small) embedder, and attaches the results to the run.
+
 ## Configuration
 
 All settings are environment variables with the `STARE_` prefix (see `backend/stare/config.py`), or
-can go in `backend/.env`.
+can go in `backend/.env`. Private keys go in `backend/.env.local`, which is git-ignored and overrides
+`backend/.env` (see `backend/.env.example`). Tests never read those keys.
 
 | Variable | Default | Notes |
 |---|---|---|

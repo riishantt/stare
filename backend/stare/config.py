@@ -13,7 +13,9 @@ REPO_DIR = BACKEND_DIR.parent
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix="STARE_", env_file=BACKEND_DIR / ".env", extra="ignore")
+    # backend/.env.local (never committed) holds private keys and overrides backend/.env
+    model_config = SettingsConfigDict(env_prefix="STARE_", env_file=(BACKEND_DIR / ".env", BACKEND_DIR / ".env.local"),
+                                      extra="ignore")
 
     # --- storage -------------------------------------------------------------------------------
     data_dir: Path = REPO_DIR / "data"

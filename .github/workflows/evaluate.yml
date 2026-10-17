@@ -1,0 +1,80 @@
+name: Evaluate
+
+# Runs the full evaluation (Table 29 metrics) in the cloud on configurations that are too heavy for the
+# laptop: PostgreSQL 16 + pgvector, and the neural fastembed (bge-small) embedder. Start it from the
+# Actions tab ("Run workflow"). Results are attached to the run as artifacts and shown in its summary.
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Gold questions to run (0 = all 100)"
+        default: "0"
+
+jobs:
+  evaluate:
+    name: ${{ matrix.db }} + ${{ matrix.embedder }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { db: postgres, embedder: lsa, dim: 256 }
+          - { db: sqlite, embedder: fastembed, dim: 384 }
+          - { db: postgres, embedder: fastembed, dim: 384 }
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: stare
+          POSTGRES_PASSWORD: stare
+          POSTGRES_DB: stare
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U stare" --health-interval 5s --health-timeout 5s --health-retries 20
+    env:
+      STARE_DATABASE_URL: ${{ matrix.db == 'postgres' && 'postgresql+psycopg://stare:stare@localhost:5432/stare' || '' }}
+      STARE_EMBEDDER: ${{ matrix.embedder }}
+      STARE_EMBEDDING_DIM: ${{ matrix.dim }}
+      STARE_LLM_PROVIDER: offline
+      # Optional: add a free CourtListener token as a repository secret named COURTLISTENER_TOKEN.
+      STARE_COURTLISTENER_TOKEN: ${{ secrets.COURTLISTENER_TOKEN }}
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: System packages
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends tesseract-ocr
+      - name: Install
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -e '.[presidio,postgres,dev]'
+          uv pip install --python .venv/bin/python \
+            "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl"
+          if [ "${{ matrix.embedder }}" = "fastembed" ]; then uv pip install --python .venv/bin/python fastembed; fi
+      - name: Build the corpus and the index
+        run: |
+          .venv/bin/stare db init
+          .venv/bin/stare ingest all --offline
+          .venv/bin/stare index build
+      - name: End-to-end demo run (both gates auto-approved, DOCX export)
+        run: .venv/bin/stare demo
+      - name: Evaluation
+        run: .venv/bin/stare eval run --limit ${{ github.event.inputs.limit || '0' }}
+      - name: Summary
+        if: always()
+        run: |
+          echo "## ${{ matrix.db }} + ${{ matrix.embedder }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f ../docs/evaluation/results.md ]; then sed -n '1,25p' ../docs/evaluation/results.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-${{ matrix.db }}-${{ matrix.embedder }}
+          path: |
+            docs/evaluation/results.md
+            docs/evaluation/results.json
+            backend/STARE-demo-run*.docx
+          if-no-files-found: warn
