@@ -16,6 +16,7 @@ jobs:
       run:
         working-directory: backend
     steps:
+      - uses: actions/checkout@v4
       - name: Check the CourtListener token
         run: |
           if [ -z "$STARE_COURTLISTENER_TOKEN" ]; then echo "COURTLISTENER_TOKEN secret is missing" && exit 1; fi
@@ -24,7 +25,6 @@ jobs:
           echo "CourtListener answered HTTP $code"
           echo "CourtListener token check: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
           [ "$code" = "200" ]
-      - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
       - name: Install
         run: |
