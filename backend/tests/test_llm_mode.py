@@ -129,7 +129,10 @@ def test_llm_failures_fall_back_to_the_offline_path(make_service):
     svc.approve_plan(run_id, ResearchPlan.model_validate(svc.snapshot(run_id)["plan"]), user_id)
     snap = svc.snapshot(run_id)
     assert snap["status"] == "awaiting_memo_approval" and llm.calls
-    assert Memo.model_validate(snap["memo"]).rule  # extractive draft replaced the failed LLM draft
+    memo = Memo.model_validate(snap["memo"])
+    assert memo.rule  # extractive draft replaced the failed LLM draft
+    assert memo.generated_by == "offline fallback (scripted:scripted-main unavailable)"  # never reported as LLM-drafted
+    assert llm.usage.failures == len(llm.calls) and llm.usage.calls == 0
 
 
 # -- provider plumbing --------------------------------------------------------------------------------
@@ -209,7 +212,7 @@ def test_openai_compat_parses_json_and_wraps_errors():
         raise ConnectionError("refused")
 
     llm.client.chat.completions.create = boom
-    with pytest.raises(LLMError, match="local model server error"):
+    with pytest.raises(LLMError, match="model server error"):
         llm.complete("sys", "p3")
 
 

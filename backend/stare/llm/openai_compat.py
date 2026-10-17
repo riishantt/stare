@@ -1,4 +1,5 @@
-"""OpenAI-compatible provider, intended for a local model server (Ollama, llama.cpp, vLLM).
+"""OpenAI-compatible provider: a local model server (Ollama, llama.cpp, vLLM) or a hosted gateway such as
+OpenRouter (STARE_LLM_BASE_URL=https://openrouter.ai/api/v1, free models end in ":free").
 
 Only used when STARE_LLM_PROVIDER=openai_compat and STARE_LLM_BASE_URL is set, e.g.
 STARE_LLM_BASE_URL=http://localhost:11434/v1 for a free local Ollama model.
@@ -21,7 +22,8 @@ class OpenAICompatModel(ChatModel):
             raise LLMError("STARE_LLM_BASE_URL is required for the openai_compat provider")
         from openai import OpenAI  # optional dependency
 
-        self.client = OpenAI(base_url=base_url, api_key=api_key or "not-needed")
+        # Free tiers rate-limit; the SDK retries 429 and 5xx responses with exponential backoff.
+        self.client = OpenAI(base_url=base_url, api_key=api_key or "not-needed", max_retries=5, timeout=120)
 
     def _chat(self, system: str, prompt: str, tier: Tier, max_tokens: int, json_mode: bool) -> str:
         model = self.model_for(tier)
@@ -34,7 +36,7 @@ class OpenAICompatModel(ChatModel):
                 **kwargs,
             )
         except Exception as e:  # the openai SDK raises many transport-specific errors
-            raise LLMError(f"local model server error: {e}") from e
+            raise LLMError(f"model server error: {e}") from e
         usage = getattr(resp, "usage", None)
         self.usage.add(model, getattr(usage, "prompt_tokens", 0), getattr(usage, "completion_tokens", 0), 0.0)
         return resp.choices[0].message.content or ""

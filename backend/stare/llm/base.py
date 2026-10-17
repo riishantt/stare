@@ -47,6 +47,7 @@ def assert_redacted(text: str) -> None:
 @dataclass
 class Usage:
     calls: int = 0
+    failures: int = 0  # provider errors; the calling agent falls back to its offline path
     input_tokens: int = 0
     output_tokens: int = 0
     cost_usd: float = 0.0
@@ -84,7 +85,11 @@ class ChatModel(ABC):
         key = self._cache_key("text", system, prompt, tier, None)
         if (hit := self._cache_get(key)) is not None:
             return hit
-        out = self._complete(system, prompt, tier=tier, max_tokens=max_tokens)
+        try:
+            out = self._complete(system, prompt, tier=tier, max_tokens=max_tokens)
+        except LLMError:
+            self.usage.failures += 1
+            raise
         self._cache_put(key, out)
         return out
 
@@ -95,7 +100,11 @@ class ChatModel(ABC):
         key = self._cache_key("json", system, prompt, tier, schema.__name__)
         if (hit := self._cache_get(key)) is not None:
             return schema.model_validate_json(hit)
-        out = self._complete_json(system, prompt, schema, tier=tier, max_tokens=max_tokens)
+        try:
+            out = self._complete_json(system, prompt, schema, tier=tier, max_tokens=max_tokens)
+        except LLMError:
+            self.usage.failures += 1
+            raise
         self._cache_put(key, out.model_dump_json())
         return out
 

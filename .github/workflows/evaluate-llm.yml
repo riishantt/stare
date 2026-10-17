@@ -1,0 +1,71 @@
+name: Evaluate with a live LLM
+
+# Runs the demo and a small evaluation with the agents in LLM mode through OpenRouter, in the cloud.
+# Needs a repository secret named OPENROUTER_API_KEY (Settings > Secrets and variables > Actions).
+# Secrets are encrypted and never shown in logs, even in a public repository.
+# Use a free model (its id ends in ":free") so the run costs nothing; free models are rate limited,
+# so keep the number of questions small.
+
+on:
+  workflow_dispatch:
+    inputs:
+      model:
+        description: "OpenRouter model id (free models end in :free)"
+        required: true
+      limit:
+        description: "Gold questions to run"
+        default: "3"
+
+jobs:
+  evaluate-llm:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      STARE_LLM_PROVIDER: openai_compat
+      STARE_LLM_BASE_URL: https://openrouter.ai/api/v1
+      STARE_LLM_MODEL: ${{ github.event.inputs.model }}
+      STARE_LLM_FAST_MODEL: ${{ github.event.inputs.model }}
+      STARE_LLM_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      STARE_LLM_MAX_TOKENS: "4000"
+      STARE_COURTLISTENER_TOKEN: ${{ secrets.COURTLISTENER_TOKEN }}
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Check the secret and the model
+        run: |
+          if [ -z "$STARE_LLM_API_KEY" ]; then echo "Add the OPENROUTER_API_KEY repository secret first." && exit 1; fi
+          case "$STARE_LLM_MODEL" in *:free) ;; *) echo "Refusing a non-free model: $STARE_LLM_MODEL" && exit 1 ;; esac
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: System packages
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends tesseract-ocr
+      - name: Install
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -e '.[presidio,llm,dev]'
+          uv pip install --python .venv/bin/python \
+            "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl"
+      - name: Build the corpus and the index
+        run: |
+          .venv/bin/stare db init
+          .venv/bin/stare ingest all --offline
+          .venv/bin/stare index build
+      - name: End-to-end demo run in LLM mode
+        run: .venv/bin/stare demo
+      - name: Evaluation in LLM mode
+        run: .venv/bin/stare eval run --limit ${{ github.event.inputs.limit }}
+      - name: Summary
+        if: always()
+        run: |
+          echo "## LLM mode: ${{ github.event.inputs.model }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f ../docs/evaluation/results.md ]; then sed -n '1,28p' ../docs/evaluation/results.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: results-llm
+          path: |
+            docs/evaluation/results.md
+            docs/evaluation/results.json
+            backend/STARE-demo-run*.docx
+          if-no-files-found: warn

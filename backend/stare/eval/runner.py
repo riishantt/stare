@@ -47,6 +47,7 @@ class QuestionResult:
     latency_s: float
     found_expected: list[str] = field(default_factory=list)
     missed_expected: list[str] = field(default_factory=list)
+    memo_drafted_by: str = ""
     error: str = ""
 
 
@@ -98,6 +99,7 @@ def run_question(q: dict, deps: AgentDeps) -> QuestionResult:
         latency_s=round(latency, 3),
         found_expected=[e for e in expected if norm_cite(e) in top],
         missed_expected=[e for e in expected if norm_cite(e) not in top],
+        memo_drafted_by=memo.generated_by,
     )
 
 
@@ -152,6 +154,9 @@ def evaluate(limit: int | None = None, settings: Settings | None = None, say=lam
     summary = {
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
         "llm_provider": deps.llm.name,
+        "llm_calls": deps.llm.usage.calls,
+        "llm_failures": deps.llm.usage.failures,
+        "memos_drafted_by_llm": sum(not r.memo_drafted_by.startswith("offline") for r in ok),
         "embedder": settings.embedder,
         "reranker": settings.reranker,
         "questions": len(gold),
@@ -220,6 +225,10 @@ def write_report(result: dict, out_dir: Path = OUT_DIR) -> Path:
         "",
         f"Generated {s['generated_at']} with LLM provider `{s['llm_provider']}`, embedder `{s['embedder']}`, "
         f"reranker `{s['reranker']}`, on {s['questions']} gold questions ({s['errors']} errors).",
+        *(["", f"LLM calls: {s.get('llm_calls', 0)} succeeded, {s.get('llm_failures', 0)} failed; "
+               f"{s.get('memos_drafted_by_llm', 0)} of {s['questions'] - s['errors']} memos drafted by the LLM "
+               "(the others fell back to the offline drafter)."]
+          if not s["llm_provider"].startswith("offline") else []),
         "",
         "| Metric | Result | Target (Table 29) |",
         "|---|---|---|",

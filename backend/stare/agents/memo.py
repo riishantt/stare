@@ -85,8 +85,11 @@ class MemoAgent(BaseAgent):
         draft: _Draft | None = None
         if not self.llm.is_offline:
             draft = self._llm_draft(record, plan, support, state, cite)
+        drafted_by = self.llm.name
         if draft is None:
             draft = self._offline_draft(record, plan, support, state, cite)
+            if not self.llm.is_offline:
+                drafted_by = f"offline fallback ({self.llm.name} unavailable)"
 
         adverse_text = self._adverse_section(adverse, state.get("procedural_flags") or [], cite)
         warnings = [_warning_line(a) for a in flagged + [a for a in verified + adverse if a.verification
@@ -108,7 +111,7 @@ class MemoAgent(BaseAgent):
             citations=list(markers.values()),
             removed_citations=removed,
             disclaimer=DISCLAIMER,
-            generated_by=self.llm.name,
+            generated_by=drafted_by,
         )
         return AgentResult(
             update={"memo": dump(memo), "memo_feedback": "", "status": "researching"},
