@@ -1,0 +1,9 @@
+{
+  "text": "Ms. Okafor lives at 221 Maple Grove Avenue, Apt 4B, Oakland, CA 94607 and has worked at the warehouse since 2019.",
+  "pii": [
+    "Okafor",
+    "221 Maple Grove Avenue",
+    "94607"
+  ],
+  "keep": []
+}

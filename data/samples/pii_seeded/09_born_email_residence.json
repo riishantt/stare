@@ -1,0 +1,9 @@
+{
+  "text": "Plaintiff Linda Chen was born on March 4, 1971, resides in Plano, Texas, and writes from l.chen71@examplemail.com.",
+  "pii": [
+    "Linda Chen",
+    "March 4, 1971",
+    "l.chen71@examplemail.com"
+  ],
+  "keep": []
+}

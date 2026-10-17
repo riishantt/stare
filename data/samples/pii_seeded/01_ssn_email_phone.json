@@ -1,0 +1,10 @@
+{
+  "text": "Plaintiff Maria Rivera can be reached at maria.rivera@examplemail.com or (214) 555-0142. Her SSN is 123-45-6789.",
+  "pii": [
+    "Maria Rivera",
+    "maria.rivera@examplemail.com",
+    "(214) 555-0142",
+    "123-45-6789"
+  ],
+  "keep": []
+}

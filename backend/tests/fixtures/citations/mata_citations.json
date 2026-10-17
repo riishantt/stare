@@ -1,0 +1,12 @@
+{
+  "description": "Fabricated citations from Mata v. Avianca, Inc., No. 22-cv-1461 (S.D.N.Y. 2023) (sanctions order), plus one extra fake appellate cite (Zicherman). Every one must end blocked (or unresolved) and never be exportable.",
+  "citations": [
+    {"id": 1, "citation": "Varghese v. China Southern Airlines Co., Ltd., 925 F.3d 1339 (11th Cir. 2019)", "case_name": "Varghese v. China Southern Airlines Co., Ltd.", "cite": "925 F.3d 1339", "kind": "reporter", "mata": true},
+    {"id": 2, "citation": "Shaboon v. Egyptair, 2013 IL App (1st) 111279-U (Ill. App. Ct. 2013)", "case_name": "Shaboon v. Egyptair", "cite": "2013 IL App (1st) 111279-U", "kind": "neutral", "mata": true},
+    {"id": 3, "citation": "Petersen v. Iran Air, 905 F. Supp. 2d 121 (D.D.C. 2012)", "case_name": "Petersen v. Iran Air", "cite": "905 F. Supp. 2d 121", "kind": "reporter", "mata": true},
+    {"id": 4, "citation": "Martinez v. Delta Air Lines, Inc., 2019 WL 4639462 (Tex. App. Sept. 25, 2019)", "case_name": "Martinez v. Delta Air Lines, Inc.", "cite": "2019 WL 4639462", "kind": "westlaw", "mata": true},
+    {"id": 5, "citation": "Estate of Durden v. KLM Royal Dutch Airlines, 2017 WL 2418825 (Ga. Ct. App. June 5, 2017)", "case_name": "Estate of Durden v. KLM Royal Dutch Airlines", "cite": "2017 WL 2418825", "kind": "westlaw", "mata": true},
+    {"id": 6, "citation": "Miller v. United Airlines, Inc., 174 F.3d 366 (4th Cir. 1999)", "case_name": "Miller v. United Airlines, Inc.", "cite": "174 F.3d 366", "kind": "reporter", "mata": true},
+    {"id": 7, "citation": "Zicherman v. Korean Air Lines Co., Ltd., 516 F.3d 1237 (11th Cir. 2008)", "case_name": "Zicherman v. Korean Air Lines Co., Ltd.", "cite": "516 F.3d 1237", "kind": "reporter", "mata": false, "note": "The real Zicherman is 516 U.S. 217 (1996)."}
+  ]
+}

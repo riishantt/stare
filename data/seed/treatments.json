@@ -1,0 +1,62 @@
+{
+ "version": 1,
+ "description": "Curated negative treatment not visible in the citation network (legislative supersession, abrogation).",
+ "treatments": [
+  {
+   "cite": "534 U.S. 184",
+   "kind": "superseded_by_statute",
+   "by": "ADA Amendments Act of 2008, Pub. L. 110-325",
+   "severity": "negative",
+   "note": "Toyota Motor Mfg. v. Williams: the ADAAA rejected its demanding standard for 'substantially limits' and 'major life activities' (Pub. L. 110-325, sec. 2(b)(4)-(5)); see 42 U.S.C. 12102(4)."
+  },
+  {
+   "cite": "527 U.S. 471",
+   "kind": "superseded_by_statute",
+   "by": "ADA Amendments Act of 2008, Pub. L. 110-325",
+   "severity": "negative",
+   "note": "Sutton v. United Air Lines: the ADAAA rejected its holding that mitigating measures are considered in deciding whether an impairment substantially limits a major life activity (Pub. L. 110-325, sec. 2(b)(2); 42 U.S.C. 12102(4)(E))."
+  },
+  {
+   "cite": "527 U.S. 516",
+   "kind": "superseded_by_statute",
+   "by": "ADA Amendments Act of 2008, Pub. L. 110-325",
+   "severity": "negative",
+   "note": "Murphy v. United Parcel Service: companion to Sutton; its mitigating-measures analysis was rejected by the ADAAA (Pub. L. 110-325, sec. 2(b)(2); 42 U.S.C. 12102(4)(E))."
+  },
+  {
+   "cite": "550 U.S. 618",
+   "kind": "superseded_by_statute",
+   "by": "Lilly Ledbetter Fair Pay Act of 2009, Pub. L. 111-2",
+   "severity": "negative",
+   "note": "Ledbetter v. Goodyear: the Act provides that the limitations period for pay discrimination runs from each paycheck or other payment affected by a discriminatory compensation decision (42 U.S.C. 2000e-5(e)(3))."
+  },
+  {
+   "cite": "490 U.S. 642",
+   "kind": "superseded_in_part_by_statute",
+   "by": "Civil Rights Act of 1991, Pub. L. 102-166",
+   "severity": "warning",
+   "note": "Wards Cove Packing v. Atonio: its allocation of the disparate-impact burden of proof was superseded by the Civil Rights Act of 1991 (42 U.S.C. 2000e-2(k))."
+  },
+  {
+   "cite": "490 U.S. 228",
+   "kind": "superseded_in_part_by_statute",
+   "by": "Civil Rights Act of 1991, Pub. L. 102-166 (42 U.S.C. 2000e-2(m), 2000e-5(g)(2)(B))",
+   "severity": "warning",
+   "note": "Price Waterhouse v. Hopkins: the 1991 Act codified the motivating-factor standard (2000e-2(m)) and replaced the same-decision complete defense with limited remedies (2000e-5(g)(2)(B))."
+  },
+  {
+   "cite": "104 F.3d 702",
+   "kind": "abrogated",
+   "by": "Burlington Northern & Santa Fe Railway Co. v. White, 548 U.S. 53 (2006)",
+   "severity": "negative",
+   "note": "Mattern v. Eastman Kodak: its 'ultimate employment decision' limit on actionable Title VII retaliation was abrogated by Burlington Northern v. White, which asks whether the action would dissuade a reasonable worker from making a charge of discrimination."
+  },
+  {
+   "cite": "228 F.3d 1105",
+   "kind": "vacated",
+   "by": "US Airways, Inc. v. Barnett, 535 U.S. 391 (2002)",
+   "severity": "negative",
+   "note": "Barnett v. U.S. Air (9th Cir. 2000) (en banc): the Supreme Court vacated the judgment and remanded, holding that a requested accommodation that conflicts with a seniority system is ordinarily unreasonable."
+  }
+ ]
+}

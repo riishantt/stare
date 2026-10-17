@@ -1,0 +1,9 @@
+{
+  "text": "Claimant Daniel Whitaker, DOB: 07/19/1964, driver's license no. D1234567, alleges age discrimination.",
+  "pii": [
+    "Daniel Whitaker",
+    "07/19/1964",
+    "D1234567"
+  ],
+  "keep": []
+}

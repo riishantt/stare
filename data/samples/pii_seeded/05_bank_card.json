@@ -1,0 +1,8 @@
+{
+  "text": "Payroll deposits went to account number 004455667788 and he paid the fee with card 4111 1111 1111 1111.",
+  "pii": [
+    "004455667788",
+    "4111 1111 1111 1111"
+  ],
+  "keep": []
+}

@@ -1,0 +1,35 @@
+# Optional production-like stack (not needed for laptop development, which uses SQLite).
+#   docker compose up -d db
+#   export STARE_DATABASE_URL=postgresql+psycopg://stare:stare@localhost:5432/stare
+#   cd backend && .venv/bin/stare db init && .venv/bin/stare ingest all --offline && .venv/bin/stare index build
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: stare
+      POSTGRES_PASSWORD: stare
+      POSTGRES_DB: stare
+    ports:
+      - "5432:5432"
+    volumes:
+      - stare-pg:/var/lib/postgresql/data
+
+  api:
+    build: ./backend
+    environment:
+      STARE_DATABASE_URL: postgresql+psycopg://stare:stare@db:5432/stare
+      STARE_DATA_DIR: /app/data
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8000:8000"
+    depends_on: [db]
+
+  web:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on: [api]
+
+volumes:
+  stare-pg:

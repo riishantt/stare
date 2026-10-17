@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+backend/.env
+
+# Node
+node_modules/
+frontend/dist/
+
+# Runtime data (rebuilt from cached sources with `stare ingest all --offline`)
+data/stare.db*
+data/checkpoints.sqlite*
+data/index/
+data/cache/
+data/uploads/
+data/refresh.json
+
+.DS_Store

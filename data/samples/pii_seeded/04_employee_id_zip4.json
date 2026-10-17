@@ -1,0 +1,9 @@
+{
+  "text": "Employee ID: 774302. Mr. Whitaker mailed the form to PO Box 1182, Austin, TX 78767-1182 on Friday.",
+  "pii": [
+    "774302",
+    "Whitaker",
+    "78767-1182"
+  ],
+  "keep": []
+}

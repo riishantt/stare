@@ -1,0 +1,5 @@
+id,depth,cited_opinion_id,citing_opinion_id
+1,2,100,104
+2,1,100,102
+3,1,999,104
+4,1,104,104

@@ -1,0 +1,866 @@
+[
+ {
+  "id": "scotus",
+  "name": "Supreme Court of the United States",
+  "short_name": "U.S.",
+  "level": "supreme",
+  "circuit": null,
+  "state": null
+ },
+ {
+  "id": "ca1",
+  "name": "United States Court of Appeals for the First Circuit",
+  "short_name": "1st Cir.",
+  "level": "appellate",
+  "circuit": "1",
+  "state": null
+ },
+ {
+  "id": "ca2",
+  "name": "United States Court of Appeals for the Second Circuit",
+  "short_name": "2d Cir.",
+  "level": "appellate",
+  "circuit": "2",
+  "state": null
+ },
+ {
+  "id": "ca3",
+  "name": "United States Court of Appeals for the Third Circuit",
+  "short_name": "3d Cir.",
+  "level": "appellate",
+  "circuit": "3",
+  "state": null
+ },
+ {
+  "id": "ca4",
+  "name": "United States Court of Appeals for the Fourth Circuit",
+  "short_name": "4th Cir.",
+  "level": "appellate",
+  "circuit": "4",
+  "state": null
+ },
+ {
+  "id": "ca5",
+  "name": "United States Court of Appeals for the Fifth Circuit",
+  "short_name": "5th Cir.",
+  "level": "appellate",
+  "circuit": "5",
+  "state": null
+ },
+ {
+  "id": "ca6",
+  "name": "United States Court of Appeals for the Sixth Circuit",
+  "short_name": "6th Cir.",
+  "level": "appellate",
+  "circuit": "6",
+  "state": null
+ },
+ {
+  "id": "ca7",
+  "name": "United States Court of Appeals for the Seventh Circuit",
+  "short_name": "7th Cir.",
+  "level": "appellate",
+  "circuit": "7",
+  "state": null
+ },
+ {
+  "id": "ca8",
+  "name": "United States Court of Appeals for the Eighth Circuit",
+  "short_name": "8th Cir.",
+  "level": "appellate",
+  "circuit": "8",
+  "state": null
+ },
+ {
+  "id": "ca9",
+  "name": "United States Court of Appeals for the Ninth Circuit",
+  "short_name": "9th Cir.",
+  "level": "appellate",
+  "circuit": "9",
+  "state": null
+ },
+ {
+  "id": "ca10",
+  "name": "United States Court of Appeals for the Tenth Circuit",
+  "short_name": "10th Cir.",
+  "level": "appellate",
+  "circuit": "10",
+  "state": null
+ },
+ {
+  "id": "ca11",
+  "name": "United States Court of Appeals for the Eleventh Circuit",
+  "short_name": "11th Cir.",
+  "level": "appellate",
+  "circuit": "11",
+  "state": null
+ },
+ {
+  "id": "cadc",
+  "name": "United States Court of Appeals for the District of Columbia Circuit",
+  "short_name": "D.C. Cir.",
+  "level": "appellate",
+  "circuit": "dc",
+  "state": null
+ },
+ {
+  "id": "cafc",
+  "name": "United States Court of Appeals for the Federal Circuit",
+  "short_name": "Fed. Cir.",
+  "level": "appellate",
+  "circuit": "fed",
+  "state": null
+ },
+ {
+  "id": "alnd",
+  "name": "United States District Court for the Northern District of Alabama",
+  "short_name": "N.D. Ala.",
+  "level": "district",
+  "circuit": "11",
+  "state": "AL"
+ },
+ {
+  "id": "almd",
+  "name": "United States District Court for the Middle District of Alabama",
+  "short_name": "M.D. Ala.",
+  "level": "district",
+  "circuit": "11",
+  "state": "AL"
+ },
+ {
+  "id": "alsd",
+  "name": "United States District Court for the Southern District of Alabama",
+  "short_name": "S.D. Ala.",
+  "level": "district",
+  "circuit": "11",
+  "state": "AL"
+ },
+ {
+  "id": "akd",
+  "name": "United States District Court for the District of Alaska",
+  "short_name": "D. Alaska",
+  "level": "district",
+  "circuit": "9",
+  "state": "AK"
+ },
+ {
+  "id": "azd",
+  "name": "United States District Court for the District of Arizona",
+  "short_name": "D. Ariz.",
+  "level": "district",
+  "circuit": "9",
+  "state": "AZ"
+ },
+ {
+  "id": "ared",
+  "name": "United States District Court for the Eastern District of Arkansas",
+  "short_name": "E.D. Ark.",
+  "level": "district",
+  "circuit": "8",
+  "state": "AR"
+ },
+ {
+  "id": "arwd",
+  "name": "United States District Court for the Western District of Arkansas",
+  "short_name": "W.D. Ark.",
+  "level": "district",
+  "circuit": "8",
+  "state": "AR"
+ },
+ {
+  "id": "cand",
+  "name": "United States District Court for the Northern District of California",
+  "short_name": "N.D. Cal.",
+  "level": "district",
+  "circuit": "9",
+  "state": "CA"
+ },
+ {
+  "id": "cacd",
+  "name": "United States District Court for the Central District of California",
+  "short_name": "C.D. Cal.",
+  "level": "district",
+  "circuit": "9",
+  "state": "CA"
+ },
+ {
+  "id": "caed",
+  "name": "United States District Court for the Eastern District of California",
+  "short_name": "E.D. Cal.",
+  "level": "district",
+  "circuit": "9",
+  "state": "CA"
+ },
+ {
+  "id": "casd",
+  "name": "United States District Court for the Southern District of California",
+  "short_name": "S.D. Cal.",
+  "level": "district",
+  "circuit": "9",
+  "state": "CA"
+ },
+ {
+  "id": "cod",
+  "name": "United States District Court for the District of Colorado",
+  "short_name": "D. Colo.",
+  "level": "district",
+  "circuit": "10",
+  "state": "CO"
+ },
+ {
+  "id": "ctd",
+  "name": "United States District Court for the District of Connecticut",
+  "short_name": "D. Conn.",
+  "level": "district",
+  "circuit": "2",
+  "state": "CT"
+ },
+ {
+  "id": "ded",
+  "name": "United States District Court for the District of Delaware",
+  "short_name": "D. Del.",
+  "level": "district",
+  "circuit": "3",
+  "state": "DE"
+ },
+ {
+  "id": "dcd",
+  "name": "United States District Court for the District of Columbia",
+  "short_name": "D.D.C.",
+  "level": "district",
+  "circuit": "dc",
+  "state": "DC"
+ },
+ {
+  "id": "flnd",
+  "name": "United States District Court for the Northern District of Florida",
+  "short_name": "N.D. Fla.",
+  "level": "district",
+  "circuit": "11",
+  "state": "FL"
+ },
+ {
+  "id": "flmd",
+  "name": "United States District Court for the Middle District of Florida",
+  "short_name": "M.D. Fla.",
+  "level": "district",
+  "circuit": "11",
+  "state": "FL"
+ },
+ {
+  "id": "flsd",
+  "name": "United States District Court for the Southern District of Florida",
+  "short_name": "S.D. Fla.",
+  "level": "district",
+  "circuit": "11",
+  "state": "FL"
+ },
+ {
+  "id": "gand",
+  "name": "United States District Court for the Northern District of Georgia",
+  "short_name": "N.D. Ga.",
+  "level": "district",
+  "circuit": "11",
+  "state": "GA"
+ },
+ {
+  "id": "gamd",
+  "name": "United States District Court for the Middle District of Georgia",
+  "short_name": "M.D. Ga.",
+  "level": "district",
+  "circuit": "11",
+  "state": "GA"
+ },
+ {
+  "id": "gasd",
+  "name": "United States District Court for the Southern District of Georgia",
+  "short_name": "S.D. Ga.",
+  "level": "district",
+  "circuit": "11",
+  "state": "GA"
+ },
+ {
+  "id": "hid",
+  "name": "United States District Court for the District of Hawaii",
+  "short_name": "D. Haw.",
+  "level": "district",
+  "circuit": "9",
+  "state": "HI"
+ },
+ {
+  "id": "idd",
+  "name": "United States District Court for the District of Idaho",
+  "short_name": "D. Idaho",
+  "level": "district",
+  "circuit": "9",
+  "state": "ID"
+ },
+ {
+  "id": "ilnd",
+  "name": "United States District Court for the Northern District of Illinois",
+  "short_name": "N.D. Ill.",
+  "level": "district",
+  "circuit": "7",
+  "state": "IL"
+ },
+ {
+  "id": "ilcd",
+  "name": "United States District Court for the Central District of Illinois",
+  "short_name": "C.D. Ill.",
+  "level": "district",
+  "circuit": "7",
+  "state": "IL"
+ },
+ {
+  "id": "ilsd",
+  "name": "United States District Court for the Southern District of Illinois",
+  "short_name": "S.D. Ill.",
+  "level": "district",
+  "circuit": "7",
+  "state": "IL"
+ },
+ {
+  "id": "innd",
+  "name": "United States District Court for the Northern District of Indiana",
+  "short_name": "N.D. Ind.",
+  "level": "district",
+  "circuit": "7",
+  "state": "IN"
+ },
+ {
+  "id": "insd",
+  "name": "United States District Court for the Southern District of Indiana",
+  "short_name": "S.D. Ind.",
+  "level": "district",
+  "circuit": "7",
+  "state": "IN"
+ },
+ {
+  "id": "iand",
+  "name": "United States District Court for the Northern District of Iowa",
+  "short_name": "N.D. Iowa",
+  "level": "district",
+  "circuit": "8",
+  "state": "IA"
+ },
+ {
+  "id": "iasd",
+  "name": "United States District Court for the Southern District of Iowa",
+  "short_name": "S.D. Iowa",
+  "level": "district",
+  "circuit": "8",
+  "state": "IA"
+ },
+ {
+  "id": "ksd",
+  "name": "United States District Court for the District of Kansas",
+  "short_name": "D. Kan.",
+  "level": "district",
+  "circuit": "10",
+  "state": "KS"
+ },
+ {
+  "id": "kyed",
+  "name": "United States District Court for the Eastern District of Kentucky",
+  "short_name": "E.D. Ky.",
+  "level": "district",
+  "circuit": "6",
+  "state": "KY"
+ },
+ {
+  "id": "kywd",
+  "name": "United States District Court for the Western District of Kentucky",
+  "short_name": "W.D. Ky.",
+  "level": "district",
+  "circuit": "6",
+  "state": "KY"
+ },
+ {
+  "id": "laed",
+  "name": "United States District Court for the Eastern District of Louisiana",
+  "short_name": "E.D. La.",
+  "level": "district",
+  "circuit": "5",
+  "state": "LA"
+ },
+ {
+  "id": "lamd",
+  "name": "United States District Court for the Middle District of Louisiana",
+  "short_name": "M.D. La.",
+  "level": "district",
+  "circuit": "5",
+  "state": "LA"
+ },
+ {
+  "id": "lawd",
+  "name": "United States District Court for the Western District of Louisiana",
+  "short_name": "W.D. La.",
+  "level": "district",
+  "circuit": "5",
+  "state": "LA"
+ },
+ {
+  "id": "med",
+  "name": "United States District Court for the District of Maine",
+  "short_name": "D. Me.",
+  "level": "district",
+  "circuit": "1",
+  "state": "ME"
+ },
+ {
+  "id": "mdd",
+  "name": "United States District Court for the District of Maryland",
+  "short_name": "D. Md.",
+  "level": "district",
+  "circuit": "4",
+  "state": "MD"
+ },
+ {
+  "id": "mad",
+  "name": "United States District Court for the District of Massachusetts",
+  "short_name": "D. Mass.",
+  "level": "district",
+  "circuit": "1",
+  "state": "MA"
+ },
+ {
+  "id": "mied",
+  "name": "United States District Court for the Eastern District of Michigan",
+  "short_name": "E.D. Mich.",
+  "level": "district",
+  "circuit": "6",
+  "state": "MI"
+ },
+ {
+  "id": "miwd",
+  "name": "United States District Court for the Western District of Michigan",
+  "short_name": "W.D. Mich.",
+  "level": "district",
+  "circuit": "6",
+  "state": "MI"
+ },
+ {
+  "id": "mnd",
+  "name": "United States District Court for the District of Minnesota",
+  "short_name": "D. Minn.",
+  "level": "district",
+  "circuit": "8",
+  "state": "MN"
+ },
+ {
+  "id": "msnd",
+  "name": "United States District Court for the Northern District of Mississippi",
+  "short_name": "N.D. Miss.",
+  "level": "district",
+  "circuit": "5",
+  "state": "MS"
+ },
+ {
+  "id": "mssd",
+  "name": "United States District Court for the Southern District of Mississippi",
+  "short_name": "S.D. Miss.",
+  "level": "district",
+  "circuit": "5",
+  "state": "MS"
+ },
+ {
+  "id": "moed",
+  "name": "United States District Court for the Eastern District of Missouri",
+  "short_name": "E.D. Mo.",
+  "level": "district",
+  "circuit": "8",
+  "state": "MO"
+ },
+ {
+  "id": "mowd",
+  "name": "United States District Court for the Western District of Missouri",
+  "short_name": "W.D. Mo.",
+  "level": "district",
+  "circuit": "8",
+  "state": "MO"
+ },
+ {
+  "id": "mtd",
+  "name": "United States District Court for the District of Montana",
+  "short_name": "D. Mont.",
+  "level": "district",
+  "circuit": "9",
+  "state": "MT"
+ },
+ {
+  "id": "ned",
+  "name": "United States District Court for the District of Nebraska",
+  "short_name": "D. Neb.",
+  "level": "district",
+  "circuit": "8",
+  "state": "NE"
+ },
+ {
+  "id": "nvd",
+  "name": "United States District Court for the District of Nevada",
+  "short_name": "D. Nev.",
+  "level": "district",
+  "circuit": "9",
+  "state": "NV"
+ },
+ {
+  "id": "nhd",
+  "name": "United States District Court for the District of New Hampshire",
+  "short_name": "D.N.H.",
+  "level": "district",
+  "circuit": "1",
+  "state": "NH"
+ },
+ {
+  "id": "njd",
+  "name": "United States District Court for the District of New Jersey",
+  "short_name": "D.N.J.",
+  "level": "district",
+  "circuit": "3",
+  "state": "NJ"
+ },
+ {
+  "id": "nmd",
+  "name": "United States District Court for the District of New Mexico",
+  "short_name": "D.N.M.",
+  "level": "district",
+  "circuit": "10",
+  "state": "NM"
+ },
+ {
+  "id": "nynd",
+  "name": "United States District Court for the Northern District of New York",
+  "short_name": "N.D.N.Y.",
+  "level": "district",
+  "circuit": "2",
+  "state": "NY"
+ },
+ {
+  "id": "nyed",
+  "name": "United States District Court for the Eastern District of New York",
+  "short_name": "E.D.N.Y.",
+  "level": "district",
+  "circuit": "2",
+  "state": "NY"
+ },
+ {
+  "id": "nysd",
+  "name": "United States District Court for the Southern District of New York",
+  "short_name": "S.D.N.Y.",
+  "level": "district",
+  "circuit": "2",
+  "state": "NY"
+ },
+ {
+  "id": "nywd",
+  "name": "United States District Court for the Western District of New York",
+  "short_name": "W.D.N.Y.",
+  "level": "district",
+  "circuit": "2",
+  "state": "NY"
+ },
+ {
+  "id": "nced",
+  "name": "United States District Court for the Eastern District of North Carolina",
+  "short_name": "E.D.N.C.",
+  "level": "district",
+  "circuit": "4",
+  "state": "NC"
+ },
+ {
+  "id": "ncmd",
+  "name": "United States District Court for the Middle District of North Carolina",
+  "short_name": "M.D.N.C.",
+  "level": "district",
+  "circuit": "4",
+  "state": "NC"
+ },
+ {
+  "id": "ncwd",
+  "name": "United States District Court for the Western District of North Carolina",
+  "short_name": "W.D.N.C.",
+  "level": "district",
+  "circuit": "4",
+  "state": "NC"
+ },
+ {
+  "id": "ndd",
+  "name": "United States District Court for the District of North Dakota",
+  "short_name": "D.N.D.",
+  "level": "district",
+  "circuit": "8",
+  "state": "ND"
+ },
+ {
+  "id": "ohnd",
+  "name": "United States District Court for the Northern District of Ohio",
+  "short_name": "N.D. Ohio",
+  "level": "district",
+  "circuit": "6",
+  "state": "OH"
+ },
+ {
+  "id": "ohsd",
+  "name": "United States District Court for the Southern District of Ohio",
+  "short_name": "S.D. Ohio",
+  "level": "district",
+  "circuit": "6",
+  "state": "OH"
+ },
+ {
+  "id": "oknd",
+  "name": "United States District Court for the Northern District of Oklahoma",
+  "short_name": "N.D. Okla.",
+  "level": "district",
+  "circuit": "10",
+  "state": "OK"
+ },
+ {
+  "id": "oked",
+  "name": "United States District Court for the Eastern District of Oklahoma",
+  "short_name": "E.D. Okla.",
+  "level": "district",
+  "circuit": "10",
+  "state": "OK"
+ },
+ {
+  "id": "okwd",
+  "name": "United States District Court for the Western District of Oklahoma",
+  "short_name": "W.D. Okla.",
+  "level": "district",
+  "circuit": "10",
+  "state": "OK"
+ },
+ {
+  "id": "ord",
+  "name": "United States District Court for the District of Oregon",
+  "short_name": "D. Or.",
+  "level": "district",
+  "circuit": "9",
+  "state": "OR"
+ },
+ {
+  "id": "paed",
+  "name": "United States District Court for the Eastern District of Pennsylvania",
+  "short_name": "E.D. Pa.",
+  "level": "district",
+  "circuit": "3",
+  "state": "PA"
+ },
+ {
+  "id": "pamd",
+  "name": "United States District Court for the Middle District of Pennsylvania",
+  "short_name": "M.D. Pa.",
+  "level": "district",
+  "circuit": "3",
+  "state": "PA"
+ },
+ {
+  "id": "pawd",
+  "name": "United States District Court for the Western District of Pennsylvania",
+  "short_name": "W.D. Pa.",
+  "level": "district",
+  "circuit": "3",
+  "state": "PA"
+ },
+ {
+  "id": "rid",
+  "name": "United States District Court for the District of Rhode Island",
+  "short_name": "D.R.I.",
+  "level": "district",
+  "circuit": "1",
+  "state": "RI"
+ },
+ {
+  "id": "scd",
+  "name": "United States District Court for the District of South Carolina",
+  "short_name": "D.S.C.",
+  "level": "district",
+  "circuit": "4",
+  "state": "SC"
+ },
+ {
+  "id": "sdd",
+  "name": "United States District Court for the District of South Dakota",
+  "short_name": "D.S.D.",
+  "level": "district",
+  "circuit": "8",
+  "state": "SD"
+ },
+ {
+  "id": "tned",
+  "name": "United States District Court for the Eastern District of Tennessee",
+  "short_name": "E.D. Tenn.",
+  "level": "district",
+  "circuit": "6",
+  "state": "TN"
+ },
+ {
+  "id": "tnmd",
+  "name": "United States District Court for the Middle District of Tennessee",
+  "short_name": "M.D. Tenn.",
+  "level": "district",
+  "circuit": "6",
+  "state": "TN"
+ },
+ {
+  "id": "tnwd",
+  "name": "United States District Court for the Western District of Tennessee",
+  "short_name": "W.D. Tenn.",
+  "level": "district",
+  "circuit": "6",
+  "state": "TN"
+ },
+ {
+  "id": "txnd",
+  "name": "United States District Court for the Northern District of Texas",
+  "short_name": "N.D. Tex.",
+  "level": "district",
+  "circuit": "5",
+  "state": "TX"
+ },
+ {
+  "id": "txsd",
+  "name": "United States District Court for the Southern District of Texas",
+  "short_name": "S.D. Tex.",
+  "level": "district",
+  "circuit": "5",
+  "state": "TX"
+ },
+ {
+  "id": "txed",
+  "name": "United States District Court for the Eastern District of Texas",
+  "short_name": "E.D. Tex.",
+  "level": "district",
+  "circuit": "5",
+  "state": "TX"
+ },
+ {
+  "id": "txwd",
+  "name": "United States District Court for the Western District of Texas",
+  "short_name": "W.D. Tex.",
+  "level": "district",
+  "circuit": "5",
+  "state": "TX"
+ },
+ {
+  "id": "utd",
+  "name": "United States District Court for the District of Utah",
+  "short_name": "D. Utah",
+  "level": "district",
+  "circuit": "10",
+  "state": "UT"
+ },
+ {
+  "id": "vtd",
+  "name": "United States District Court for the District of Vermont",
+  "short_name": "D. Vt.",
+  "level": "district",
+  "circuit": "2",
+  "state": "VT"
+ },
+ {
+  "id": "vaed",
+  "name": "United States District Court for the Eastern District of Virginia",
+  "short_name": "E.D. Va.",
+  "level": "district",
+  "circuit": "4",
+  "state": "VA"
+ },
+ {
+  "id": "vawd",
+  "name": "United States District Court for the Western District of Virginia",
+  "short_name": "W.D. Va.",
+  "level": "district",
+  "circuit": "4",
+  "state": "VA"
+ },
+ {
+  "id": "waed",
+  "name": "United States District Court for the Eastern District of Washington",
+  "short_name": "E.D. Wash.",
+  "level": "district",
+  "circuit": "9",
+  "state": "WA"
+ },
+ {
+  "id": "wawd",
+  "name": "United States District Court for the Western District of Washington",
+  "short_name": "W.D. Wash.",
+  "level": "district",
+  "circuit": "9",
+  "state": "WA"
+ },
+ {
+  "id": "wvnd",
+  "name": "United States District Court for the Northern District of West Virginia",
+  "short_name": "N.D. W. Va.",
+  "level": "district",
+  "circuit": "4",
+  "state": "WV"
+ },
+ {
+  "id": "wvsd",
+  "name": "United States District Court for the Southern District of West Virginia",
+  "short_name": "S.D. W. Va.",
+  "level": "district",
+  "circuit": "4",
+  "state": "WV"
+ },
+ {
+  "id": "wied",
+  "name": "United States District Court for the Eastern District of Wisconsin",
+  "short_name": "E.D. Wis.",
+  "level": "district",
+  "circuit": "7",
+  "state": "WI"
+ },
+ {
+  "id": "wiwd",
+  "name": "United States District Court for the Western District of Wisconsin",
+  "short_name": "W.D. Wis.",
+  "level": "district",
+  "circuit": "7",
+  "state": "WI"
+ },
+ {
+  "id": "wyd",
+  "name": "United States District Court for the District of Wyoming",
+  "short_name": "D. Wyo.",
+  "level": "district",
+  "circuit": "10",
+  "state": "WY"
+ },
+ {
+  "id": "prd",
+  "name": "United States District Court for the District of Puerto Rico",
+  "short_name": "D.P.R.",
+  "level": "district",
+  "circuit": "1",
+  "state": "PR"
+ },
+ {
+  "id": "gud",
+  "name": "United States District Court for the District of Guam",
+  "short_name": "D. Guam",
+  "level": "district",
+  "circuit": "9",
+  "state": "GU"
+ },
+ {
+  "id": "nmid",
+  "name": "United States District Court for the District of the Northern Mariana Islands",
+  "short_name": "D.N. Mar. I.",
+  "level": "district",
+  "circuit": "9",
+  "state": "MP"
+ },
+ {
+  "id": "vid",
+  "name": "United States District Court for the District of the Virgin Islands",
+  "short_name": "D.V.I.",
+  "level": "district",
+  "circuit": "3",
+  "state": "VI"
+ }
+]

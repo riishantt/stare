@@ -1,0 +1,55 @@
+{
+ "version": 1,
+ "cases": [
+  {
+   "cite": "100 F.3d 1",
+   "name": "Alpha v. Beta",
+   "match": "alpha v beta",
+   "reporter": "f3d",
+   "volume": 100,
+   "page": 1,
+   "court": "ca5",
+   "group": "circuit",
+   "source": "cap",
+   "status": "ok"
+  },
+  {
+   "cite": "50 F. Supp. 2d 77",
+   "name": "Gamma v. Delta",
+   "reporter": "f-supp-2d",
+   "volume": 50,
+   "page": 77,
+   "court": "txnd",
+   "group": "district",
+   "source": "cap",
+   "status": "ok"
+  },
+  {
+   "cite": "120 F. App'x 300",
+   "name": "Zeta v. Eta",
+   "reporter": "f-appx",
+   "volume": 120,
+   "page": 300,
+   "court": "ca9",
+   "group": "circuit",
+   "source": "cap",
+   "status": "ok",
+   "extra_cites": [
+    {
+     "cite": "500 U.S. 5",
+     "type": "official"
+    }
+   ]
+  },
+  {
+   "cite": "678 F. Supp. 3d 443",
+   "name": "Missing v. Case",
+   "reporter": "f-supp-3d",
+   "volume": 678,
+   "page": 443,
+   "group": "x",
+   "source": "courtlistener",
+   "status": "needs_token"
+  }
+ ]
+}

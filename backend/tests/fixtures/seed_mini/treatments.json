@@ -1,0 +1,16 @@
+{
+ "treatments": [
+  {
+   "cite": "100 F.3d 1",
+   "kind": "abrogated",
+   "by": "Burlington Northern & Santa Fe Railway Co. v. White, 548 U.S. 53 (2006)",
+   "note": "test",
+   "severity": "negative"
+  },
+  {
+   "cite": "1 U.S. 1",
+   "kind": "overruled",
+   "by": "nobody"
+  }
+ ]
+}

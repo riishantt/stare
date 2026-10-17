@@ -1,0 +1,6 @@
+id,docket_id,date_filed,case_name,case_name_short,case_name_full,precedential_status
+10,1,2019-05-01,Alpha v. Beta,Alpha,Alpha Corp. v. Beta Inc.,Published
+11,2,2020-06-02,Gamma v. Delta,Gamma,,Unpublished
+12,3,1999-01-01,State v. Matter,,,Published
+13,4,2019-07-07,Epsilon v. Zeta,,,Published
+14,5,2021-08-08,Eta v. Theta,,,Published
