@@ -1,0 +1,44 @@
+name: Mata check
+
+# Quick cloud check: confirms the COURTLISTENER_TOKEN repository secret is accepted, then runs the
+# Mata v. Avianca fixture through the Citation Firewall with it.
+
+on:
+  workflow_dispatch:
+
+jobs:
+  mata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      STARE_COURTLISTENER_TOKEN: ${{ secrets.COURTLISTENER_TOKEN }}
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Check the CourtListener token
+        run: |
+          if [ -z "$STARE_COURTLISTENER_TOKEN" ]; then echo "COURTLISTENER_TOKEN secret is missing" && exit 1; fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: Token $STARE_COURTLISTENER_TOKEN" \
+            "https://www.courtlistener.com/api/rest/v4/courts/?id=scotus")
+          echo "CourtListener answered HTTP $code"
+          echo "CourtListener token check: HTTP $code" >> "$GITHUB_STEP_SUMMARY"
+          [ "$code" = "200" ]
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Install
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip install --python .venv/bin/python -e '.[dev]'
+      - name: Build the corpus
+        run: |
+          .venv/bin/stare db init
+          .venv/bin/stare ingest all --offline
+      - name: Mata v. Avianca fixture
+        run: .venv/bin/stare eval mata | tee mata.txt
+      - name: Summary
+        if: always()
+        run: |
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat mata.txt >> "$GITHUB_STEP_SUMMARY" || true
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
