@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
@@ -19,6 +20,8 @@ from pydantic import BaseModel
 
 Tier = Literal["main", "fast"]
 T = TypeVar("T", bound=BaseModel)
+
+log = logging.getLogger(__name__)
 
 
 class LLMError(RuntimeError):
@@ -48,6 +51,7 @@ def assert_redacted(text: str) -> None:
 class Usage:
     calls: int = 0
     failures: int = 0  # provider errors; the calling agent falls back to its offline path
+    failure_reasons: dict[str, int] = field(default_factory=dict)  # error message -> count
     input_tokens: int = 0
     output_tokens: int = 0
     cost_usd: float = 0.0
@@ -59,6 +63,12 @@ class Usage:
         self.output_tokens += output_tokens
         self.cost_usd += cost
         self.by_model[model] = self.by_model.get(model, 0) + 1
+
+    def fail(self, error: Exception) -> None:
+        self.failures += 1
+        reason = str(error)[:300]
+        self.failure_reasons[reason] = self.failure_reasons.get(reason, 0) + 1
+        log.warning("LLM call failed, using the offline path: %s", reason)
 
 
 class ChatModel(ABC):
@@ -87,8 +97,8 @@ class ChatModel(ABC):
             return hit
         try:
             out = self._complete(system, prompt, tier=tier, max_tokens=max_tokens)
-        except LLMError:
-            self.usage.failures += 1
+        except LLMError as e:
+            self.usage.fail(e)
             raise
         self._cache_put(key, out)
         return out
@@ -102,8 +112,8 @@ class ChatModel(ABC):
             return schema.model_validate_json(hit)
         try:
             out = self._complete_json(system, prompt, schema, tier=tier, max_tokens=max_tokens)
-        except LLMError:
-            self.usage.failures += 1
+        except LLMError as e:
+            self.usage.fail(e)
             raise
         self._cache_put(key, out.model_dump_json())
         return out

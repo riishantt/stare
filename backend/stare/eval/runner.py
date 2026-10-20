@@ -156,6 +156,7 @@ def evaluate(limit: int | None = None, settings: Settings | None = None, say=lam
         "llm_provider": deps.llm.name,
         "llm_calls": deps.llm.usage.calls,
         "llm_failures": deps.llm.usage.failures,
+        "llm_failure_reasons": deps.llm.usage.failure_reasons,
         "memos_drafted_by_llm": sum(not r.memo_drafted_by.startswith("offline") for r in ok),
         "embedder": settings.embedder,
         "reranker": settings.reranker,
