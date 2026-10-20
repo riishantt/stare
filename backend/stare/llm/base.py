@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Literal, TypeVar
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 Tier = Literal["main", "fast"]
 T = TypeVar("T", bound=BaseModel)
@@ -26,6 +26,14 @@ log = logging.getLogger(__name__)
 
 class LLMError(RuntimeError):
     pass
+
+
+class InvalidJSONError(LLMError):
+    """The model answered, but not with a usable JSON object. `complete_json` asks once more."""
+
+    def __init__(self, message: str, more_tokens: bool = False):
+        super().__init__(message)
+        self.more_tokens = more_tokens  # the reply was cut off at max_tokens: retry with a larger budget
 
 
 class UnredactedTextError(LLMError):
@@ -47,10 +55,61 @@ def assert_redacted(text: str) -> None:
             raise UnredactedTextError(f"prompt contains an unredacted {kind}; refusing to call the LLM")
 
 
+def json_shape(schema: type[BaseModel]) -> str:
+    """A compact example object for the prompt. Weaker models echo a raw JSON Schema back instead of filling it."""
+    root = schema.model_json_schema()
+    defs = root.get("$defs", {})
+
+    def example(node: dict):
+        if "$ref" in node:
+            return example(defs[node["$ref"].rsplit("/", 1)[-1]])
+        if "anyOf" in node:  # Optional[X]: show X, keeping the field's description
+            inner = next((o for o in node["anyOf"] if o.get("type") != "null"), {})
+            return example({"description": node.get("description", ""), **inner})
+        kind = node.get("type")
+        if kind == "object":
+            return {k: example(v) for k, v in node.get("properties", {}).items()}
+        if kind == "array":
+            return [example(node.get("items", {}))]
+        if kind == "boolean":
+            return node.get("default", True)
+        if kind in ("integer", "number"):
+            return node.get("default", 0)
+        if "enum" in node:
+            return "one of: " + ", ".join(map(str, node["enum"]))
+        return node.get("description") or "..."
+
+    return json.dumps(example(root))
+
+
+def parse_json_reply[M: BaseModel](text: str, schema: type[M]) -> M:
+    """Validate the first JSON object in a reply, tolerating code fences and prose around it."""
+    decoder = json.JSONDecoder()
+    first_error: Exception | None = None  # the first error is the most telling one
+    for m in re.finditer(r"\{", text):
+        try:
+            obj, _ = decoder.raw_decode(text, m.start())
+        except json.JSONDecodeError as e:
+            first_error = first_error or e
+            continue
+        candidates = [obj]
+        if len(obj) == 1 and isinstance(inner := next(iter(obj.values())), dict):
+            candidates.append(inner)  # {"_Reason": {"reason": ...}}: one key wrapped around the payload
+        for candidate in candidates:
+            try:
+                return schema.model_validate(candidate)
+            except ValidationError as e:
+                first_error = first_error or e
+        break  # the first complete object is the answer; objects nested inside it are not
+    reason = first_error or ("empty reply" if not text.strip() else "no JSON object in the reply")
+    raise InvalidJSONError(f"model returned invalid JSON for {schema.__name__}: {reason}")
+
+
 @dataclass
 class Usage:
     calls: int = 0
     failures: int = 0  # provider errors; the calling agent falls back to its offline path
+    retries: int = 0  # unusable JSON replies asked once more (each retry is also counted in `calls`)
     failure_reasons: dict[str, int] = field(default_factory=dict)  # error message -> count
     input_tokens: int = 0
     output_tokens: int = 0
@@ -111,12 +170,26 @@ class ChatModel(ABC):
         if (hit := self._cache_get(key)) is not None:
             return schema.model_validate_json(hit)
         try:
-            out = self._complete_json(system, prompt, schema, tier=tier, max_tokens=max_tokens)
+            out = self._complete_json_with_retry(system, prompt, schema, tier, max_tokens)
         except LLMError as e:
             self.usage.fail(e)
             raise
         self._cache_put(key, out.model_dump_json())
         return out
+
+    def _complete_json_with_retry(self, system: str, prompt: str, schema: type[T], tier: Tier, max_tokens: int) -> T:
+        """One corrective retry: weak models sometimes echo the schema, break the JSON or answer with nothing.
+        A call that still fails counts as one failure; the retry itself shows in `usage.retries`."""
+        try:
+            return self._complete_json(system, prompt, schema, tier=tier, max_tokens=max_tokens)
+        except InvalidJSONError as e:
+            self.usage.retries += 1
+            log.info("retrying an unusable JSON reply: %s", str(e)[:300])
+            retry = (f"{prompt}\n\nYour previous reply could not be used ({str(e)[:300]}). "
+                     "Reply with only the JSON object, with real values filled in.")
+            assert_redacted(retry)  # the error quotes the model's own reply
+            budget = max_tokens * 2 if e.more_tokens else max_tokens
+            return self._complete_json(system, retry, schema, tier=tier, max_tokens=budget)
 
     # -- provider hooks ----------------------------------------------------------------------
 

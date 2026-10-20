@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 
-from stare.llm.base import ChatModel, LLMError, T, Tier
+from stare.llm.base import ChatModel, LLMError, T, Tier, parse_json_reply
 
 # USD per million tokens (input, output). Used for the per-run cost shown in the audit log.
 _PRICES = {
@@ -66,10 +66,7 @@ class AnthropicModel(ChatModel):
     def _complete_json(self, system: str, prompt: str, schema: type[T], *, tier: Tier, max_tokens: int) -> T:
         fmt = {"type": "json_schema", "schema": _strict_schema(schema.model_json_schema())}
         text = self._create(system, prompt, tier, max_tokens, {"effort": self.effort, "format": fmt})
-        try:
-            return schema.model_validate(json.loads(text))
-        except (json.JSONDecodeError, ValueError) as e:
-            raise LLMError(f"model returned invalid JSON for {schema.__name__}: {e}") from e
+        return parse_json_reply(text, schema)  # raises InvalidJSONError, which complete_json retries once
 
 
 def _strict_schema(schema: dict) -> dict:

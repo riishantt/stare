@@ -7,6 +7,7 @@ through their LLM branches, and check the provider adapters against fake SDK cli
 from __future__ import annotations
 
 import io
+import json
 from types import SimpleNamespace
 
 import pytest
@@ -201,7 +202,7 @@ def test_openai_compat_parses_json_and_wraps_errors():
     llm.client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
     assert llm.complete_json("sys", "p", _Queries, tier="fast").queries == ["a", "b"]
     assert seen["model"] == "qwen-small" and seen["response_format"] == {"type": "json_object"}
-    assert "JSON Schema" in seen["messages"][0]["content"]
+    assert '{"queries": ["..."]}' in seen["messages"][0]["content"]  # an example object, not a raw JSON Schema
     assert llm.usage.calls == 1 and llm.usage.cost_usd == 0.0
 
     llm.client.chat.completions.create = lambda **kw: _openai_reply("not json")
@@ -214,6 +215,72 @@ def test_openai_compat_parses_json_and_wraps_errors():
     llm.client.chat.completions.create = boom
     with pytest.raises(LLMError, match="model server error"):
         llm.complete("sys", "p3")
+
+
+def _scripted_openai(*replies):
+    """An OpenAICompatModel whose fake client answers with `replies` in order and records each request."""
+    from stare.llm.openai_compat import OpenAICompatModel
+
+    llm = OpenAICompatModel("free-model", "free-model", "http://localhost:11434/v1")
+    llm.sent = []
+    queue = list(replies)
+
+    def create(**kw):
+        llm.sent.append(kw)
+        content, finish = queue.pop(0)
+        return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=content), finish_reason=finish)],
+                               usage=SimpleNamespace(prompt_tokens=5, completion_tokens=5))
+
+    llm.client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=create)))
+    return llm
+
+
+SCHEMA_ECHO = '{"properties": {"reason": {"title": "Reason", "type": "string"}}, "required": ["reason"]}'
+
+
+def test_schema_echo_is_retried_once_and_the_retry_is_counted():
+    llm = _scripted_openai((SCHEMA_ECHO, "stop"), ('{"reason": "the gap breaks causation"}', "stop"))
+    assert llm.complete_json("sys", "why adverse?", _Reason).reason == "the gap breaks causation"
+    assert llm.usage.retries == 1 and llm.usage.failures == 0 and llm.usage.calls == 2
+    retry_prompt = llm.sent[1]["messages"][1]["content"]
+    assert retry_prompt.startswith("why adverse?") and "could not be used" in retry_prompt
+
+
+@pytest.mark.parametrize("reply", [
+    'Here you go:\n```json\n{"reason": "time-barred"}\n```\nAnything else?',
+    '{"reason": "time-barred"} {"reason": "a second object is ignored"}',
+    '{"_Reason": {"reason": "time-barred"}}',  # one key wrapped around the payload
+])
+def test_tolerant_parsing_needs_no_retry(reply):
+    llm = _scripted_openai((reply, "stop"))
+    assert llm.complete_json("sys", "p", _Reason).reason == "time-barred"
+    assert llm.usage.retries == 0 and llm.usage.calls == 1
+
+
+def test_empty_reply_cut_off_at_max_tokens_is_retried_with_a_larger_budget():
+    llm = _scripted_openai((None, "length"), ('{"queries": ["q"]}', "stop"))
+    assert llm.complete_json("sys", "p", _Queries, max_tokens=4000).queries == ["q"]
+    assert [kw["max_tokens"] for kw in llm.sent] == [4000, 8000]
+    assert "cut off at max_tokens=4000 (empty)" in llm.sent[1]["messages"][1]["content"]
+    assert llm.usage.retries == 1 and llm.usage.failures == 0
+
+
+def test_two_unusable_replies_are_one_failure_and_raise():
+    llm = _scripted_openai(("", "stop"), ('{"reason": "..."}', "stop"))  # empty, then the example echoed back
+    with pytest.raises(LLMError, match="invalid JSON for _Reason: the example was echoed back"):
+        llm.complete_json("sys", "p", _Reason)
+    assert [kw["max_tokens"] for kw in llm.sent] == [8000, 8000]  # not truncated: same budget
+    assert llm.usage.retries == 1 and llm.usage.failures == 1 and llm.usage.calls == 2
+    assert sum(llm.usage.failure_reasons.values()) == 1
+
+
+def test_json_shape_shows_nested_fields_and_choices():
+    from stare.llm.base import json_shape
+
+    shape = json.loads(json_shape(_PlanDraft))
+    assert shape["question"] == "..."
+    item = shape["items"][0]
+    assert item["statute"] == "one of: title_vii, ada, adea" and item["elements"] == ["..."] and item["checked"] is True
 
 
 def _claude_reply(text: str, stop: str = "end_turn"):
