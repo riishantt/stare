@@ -218,6 +218,7 @@ def _attach_quotes(cites: list[ExtractedCitation], text: str) -> None:
     quotes = _find_quotes(text)
     spans = [c.span for c in cites]
     assigned: dict[int, list[tuple[int, str]]] = {}
+    assigned_later: dict[int, list[tuple[int, str]]] = {}
     for qs, qe, inner in quotes:
         best: tuple[tuple[int, int], int] | None = None  # ((preceding?, distance), cite index)
         for i, (cs, ce) in enumerate(spans):
@@ -251,14 +252,21 @@ def _attach_quotes(cites: list[ExtractedCitation], text: str) -> None:
             key = (0 if preceding else 1, d)
             if best is None or key < best[0]:
                 best = (key, i)
-        if best is None:
+        later = best is None
+        if later:
             best = _later_sentence_owner(text, spans, qs, qe)
         if best:
-            assigned.setdefault(best[1], []).append((qs, inner))
+            (assigned_later if later else assigned).setdefault(best[1], []).append((qs, inner))
             cites[best[1]].quote_spans.append((qs, qe))
+            if later:
+                cites[best[1]].later_quote_spans.append((qs, qe))
     for i, qs in assigned.items():
         qs.sort()
         cites[i].quote = QUOTE_SEP.join(q for _, q in qs)  # separate quotations, each checked on its own
+    for i, qs in assigned_later.items():
+        qs.sort()
+        cites[i].later_quote_spans.sort()
+        cites[i].later_quote = QUOTE_SEP.join(q for _, q in qs)
 
 
 # A quotation introduced as evidence rather than authority ("the complaint alleges", "her supervisor wrote").
@@ -317,9 +325,11 @@ def _unparsed_case_refs(text: str, covered: list[tuple[int, int]]) -> list[Extra
             continue
         if not text[:cs].rstrip().endswith(","):
             continue
+        if re.match(r"\d+\s+(?:Stat\.|U\.S\.C|C\.F\.R|Fed\.\s*Reg)", m.group(0)):
+            continue  # Statutes at Large, the Code or the Federal Register: not a case reporter
         name, start = _case_name_before(text, cs)
-        if not name or "[" in name:
-            continue
+        if not name or "[" in name or re.search(r"\d", name):
+            continue  # a digit means the 'name' runs back over another citation: not a caption
         end = m.end() + _UNPARSED_REST.match(text, m.end()).end() - m.end()
         out.append(ExtractedCitation(raw=text[start:end].strip(), cite="", case_name=name, span=(start, end), kind="unknown"))
     return out

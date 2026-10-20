@@ -221,3 +221,10 @@ def test_markdown_italics_and_short_forms_resolve_to_the_antecedent():
     full, short = extract_citations(text)
     assert full.case_name.endswith("v. Nassar") and "*" not in full.case_name
     assert short.kind == "short_form" and short.cite == "570 U.S. 338" and short.pin_cite == "352"
+
+
+def test_statute_citation_after_a_case_is_not_an_unparseable_case_citation():
+    t = ("*Toyota Motor Mfg., Ky., Inc. v. Williams*, 534 U.S. 184 (2002), which held that an impairment must "
+         "\u201cprevent or severely restrict\u201d activities, was superseded by the ADA Amendments Act of 2008, "
+         "Pub. L. No. 110-325, 122 Stat. 3553.")
+    assert not [c for c in extract_citations(t) if c.kind == "unknown"]

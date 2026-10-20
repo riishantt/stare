@@ -126,9 +126,12 @@ def test_quotation_in_the_sentence_after_its_citation_is_checked(fw):
     text = ("In Univ. of Tex. Sw. Med. Ctr. v. Nassar, 570 U.S. 338 (2013) [1], the Court addressed causation. "
             f'It held that "{MISQUOTE}." Other prose stays.')
     c = fw.verify_text(text)[0]
-    assert c.citation.quote.startswith("an employer is strictly liable") and c.status == "blocked"
+    # linked by position only: the quotation is removed, the (real) citation is warned, not blocked
+    assert c.citation.later_quote.startswith("an employer is strictly liable") and c.status == "warning"
+    assert not c.exportable and c.unsupported_quote_spans
     clean, removed = fw.filter_text(text, [c])
-    assert clean == "Other prose stays." and removed  # the quotation does not stay behind unchecked
+    assert MISQUOTE not in clean and "the Court addressed causation." in clean and clean.endswith("Other prose stays.")
+    assert removed  # the quotation does not stay behind unchecked
     memo = Memo(title="t", question_presented="q", issue="i", rule=text, application="a", conclusion="c")
     assert export_violations(memo, fw)
     cleaned, _ = check_memo(memo, fw)
@@ -152,3 +155,14 @@ def test_quotation_from_the_complaint_after_a_citation_is_not_attached(fw):
             'The complaint alleges that "the manager fired her two days after the charge."')
     c = fw.verify_text(text)[0]
     assert c.citation.quote == "" and c.status == "verified"
+
+
+def test_quotation_from_another_authority_after_a_citation_does_not_block_the_citation(fw):
+    """A later sentence quoting another (uncited) authority must not get a real case blocked: the unsupported
+    quotation goes, the citation and its own sentence stay."""
+    text = ("Under Univ. of Tex. Sw. Med. Ctr. v. Nassar, 570 U.S. 338 (2013), retaliation needs but-for causation. "
+            'In the Fifth Circuit, the comparator must be "similarly situated in all material respects." End.')
+    c = fw.verify_text(text)[0]
+    assert c.status == "warning" and not c.exportable
+    clean, _ = fw.filter_text(text, [c])
+    assert clean.startswith("Under Univ. of Tex.") and "similarly situated" not in clean and clean.endswith("End.")

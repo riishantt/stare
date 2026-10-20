@@ -210,6 +210,10 @@ class ExtractedCitation(BaseModel):
     quote: str = ""  # quoted text attached to the citation in the draft
     span: tuple[int, int] = (0, 0)  # char offsets of the citation in the checked text
     quote_spans: list[tuple[int, int]] = Field(default_factory=list)  # offsets of the attached quotations
+    # quotations in a later sentence, linked to this citation by position only (a guess, so a mismatch removes the
+    # quotation rather than blocking the citation)
+    later_quote: str = ""
+    later_quote_spans: list[tuple[int, int]] = Field(default_factory=list)
     kind: Literal["case", "statute", "regulation", "short_form", "id", "unknown"] = "case"
 
 
@@ -223,11 +227,13 @@ class CitationCheck(BaseModel):
     source: Literal["local", "cap", "cache", "courtlistener", "statute_index"] | None = None
     url: str | None = None
     treatment: list[str] = Field(default_factory=list)  # e.g. ["superseded by statute: ADA Amendments Act of 2008"]
+    unsupported_quote_spans: list[tuple[int, int]] = Field(default_factory=list)  # later quotations not in the opinion
 
     @property
     def exportable(self) -> bool:
-        """NFR-01: only verified or attorney-acknowledged warning citations may be exported."""
-        return self.status in ("verified", "warning")
+        """NFR-01: only verified or attorney-acknowledged warning citations may be exported, and never next to a
+        quotation that the cited opinion does not contain."""
+        return self.status in ("verified", "warning") and not self.unsupported_quote_spans
 
 
 # ----------------------------------------------------------------------------------------------

@@ -22,6 +22,7 @@ from stare.citations.gates import (
 )
 from stare.citations.index import CitationIndex
 from stare.citations.parser import extract_citations, sentence_starts
+from stare.citations.quote import QUOTE_SEP
 from stare.config import Settings, get_settings
 from stare.schemas import Authority, CitationCheck, ExtractedCitation, GateResult
 
@@ -70,9 +71,11 @@ class CitationFirewall:
 
             # Gate 3
             text = ""
-            if (cite.quote or "").strip():
+            if (cite.quote or "").strip() or cite.later_quote.strip():
                 text = self._text(ref, index, is_law(cite))
             g3 = gate_quote_match(cite.quote, text, self.settings)
+            if cite.later_quote.strip():
+                g3, check.unsupported_quote_spans = self._later_quotes(cite, text, g3)
             check.gates.append(g3)
 
             # Gate 4 (cases only)
@@ -110,6 +113,22 @@ class CitationFirewall:
         if ref.cluster_id is not None and self.client is not None:
             return self.client.fetch_opinion_text(ref.cluster_id) or ""
         return ""
+
+    def _later_quotes(self, cite: ExtractedCitation, text: str, g3: GateResult) -> tuple[GateResult, list[tuple[int, int]]]:
+        """Quotations in a later sentence belong to this citation only by position, so one the opinion does not
+        contain is removed from the text (its spans are returned) and the citation is warned, not blocked."""
+        parts = cite.later_quote.split(QUOTE_SEP)
+        results = [gate_quote_match(q, text, self.settings) for q in parts]
+        bad = [span for span, r in zip(cite.later_quote_spans, results, strict=False) if r.outcome != "pass"]
+        if g3.outcome == "fail":
+            return g3, bad
+        if bad:
+            detail = (f"{len(bad)} quotation(s) in a following sentence, linked to this citation by position, are not in "
+                      "this opinion and were removed; check which authority they come from")
+            return GateResult(gate=3, name="quote_match", outcome="warn", detail=detail), bad
+        if g3.outcome == "skip":
+            return results[0], []
+        return g3, []
 
     @staticmethod
     def _status(gates: list[GateResult], cite: ExtractedCitation) -> tuple[str, str]:
@@ -149,7 +168,8 @@ class CitationFirewall:
         """Remove every sentence that contains a blocked or unresolved citation, or a quotation attached to one
         (a quotation may sit in the sentence after its citation, and must not stay behind unchecked)."""
         bad = [c for c in checks if c.status in _REMOVED and c.citation.span[1] <= len(text)]
-        if not bad:
+        quotes = [c for c in checks if c.status not in _REMOVED and c.unsupported_quote_spans]
+        if not bad and not quotes:
             return text, []
         # a full stop inside a quotation does not end the sentence; the one just before the closing mark does
         protected = [c.citation.span for c in checks] + [(qs, qe - 2) for c in checks for qs, qe in c.citation.quote_spans]
@@ -158,6 +178,10 @@ class CitationFirewall:
         for c in bad:
             for pos in [c.citation.span[0]] + [qs for qs, _ in c.citation.quote_spans if qs < len(text)]:
                 drop.add(max(i for i, s in enumerate(starts[:-1]) if s <= pos))
+        for c in quotes:  # only the unsupported quotation's sentence goes; the citation's own sentence stays
+            for qs, _ in c.unsupported_quote_spans:
+                if qs < len(text):
+                    drop.add(max(i for i, s in enumerate(starts[:-1]) if s <= qs))
         out, last = [], 0
         for k in sorted(drop):
             s, e = starts[k], starts[k + 1]
@@ -170,7 +194,7 @@ class CitationFirewall:
         clean = "".join(out)
         clean = re.sub(r"[ \t]+(\n|$)", r"\1", clean)
         clean = re.sub(r"\n{3,}", "\n\n", clean)
-        removed = list(dict.fromkeys(c.citation.raw for c in bad))
+        removed = list(dict.fromkeys([c.citation.raw for c in bad] + [f"a quotation attributed to {c.citation.raw}" for c in quotes]))
         return clean.strip() if not text.endswith("\n") else clean.strip() + "\n", removed
 
 
