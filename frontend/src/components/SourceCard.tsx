@@ -35,9 +35,9 @@ export default function SourceCard({ item, onView }: { item: SourceItem; onView:
         )}
         {item.adverse && <span className="chip chip-bad" title={a?.adverse_reason}>Adverse</span>}
       </div>
-      <h4 className="mt-1.5 font-semibold leading-snug text-navy">
+      <h3 className="mt-1.5 font-semibold leading-snug text-navy">
         {item.caseName ? <i>{item.caseName}</i> : <span className="text-muted">Unknown case</span>}
-      </h4>
+      </h3>
       <p className="font-mono text-xs text-ink/80">{item.citation}{a?.year ? ` (${a.year})` : ""}</p>
       {a?.rank && <p className="mt-0.5 text-xs text-muted">{a.rank.reason}</p>}
       {item.adverse && a?.adverse_reason && <p className="mt-1 text-xs text-bad">{a.adverse_reason}</p>}

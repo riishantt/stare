@@ -51,8 +51,10 @@ export default function CaseFileCard({ runId, record, courts, canEdit, onSaved }
             </Row>
             {rec.procedural_posture && <Row k="Posture">{rec.procedural_posture}</Row>}
             {rec.facts_summary && <Row k="Facts">{rec.facts_summary}</Row>}
-            <div className="alert alert-warn !py-1.5 text-xs font-semibold">Personal details redacted: {rec.redaction_count}</div>
           </dl>
+        )}
+        {record && !editing && (
+          <div className="alert alert-warn !py-1.5 text-xs font-semibold">Personal details redacted: {rec.redaction_count}</div>
         )}
         {editing && (
           <div className="space-y-3">

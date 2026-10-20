@@ -19,7 +19,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-40px)] items-center justify-center bg-navy px-4 pb-12">
+    <main className="flex min-h-[calc(100vh-40px)] items-center justify-center bg-navy px-4 pb-12">
       <div className="w-full max-w-md">
         <div className="mb-6 text-center text-white">
           <div className="text-4xl font-extrabold tracking-[0.25em]">ST<span className="text-amber">A</span>RE</div>
@@ -47,6 +47,6 @@ export default function Login() {
           </div>
         </form>
       </div>
-    </div>
+    </main>
   );
 }
