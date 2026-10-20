@@ -242,11 +242,36 @@ def _attach_quotes(cites: list[ExtractedCitation], text: str) -> None:
             key = (0 if preceding else 1, d)
             if best is None or key < best[0]:
                 best = (key, i)
+        if best is None:
+            best = _later_sentence_owner(text, spans, qs, qe)
         if best:
             assigned.setdefault(best[1], []).append((qs, inner))
+            cites[best[1]].quote_spans.append((qs, qe))
     for i, qs in assigned.items():
         qs.sort()
         cites[i].quote = QUOTE_SEP.join(q for _, q in qs)  # separate quotations, each checked on its own
+
+
+# A quotation introduced as evidence rather than authority ("the complaint alleges", "her supervisor wrote").
+_FACT_SOURCE = re.compile(
+    r"\b(?:complaint|alleg\w*|testif\w*|testimony|depos\w*|declaration|affidavit|e-?mails?|text messages?|letter|"
+    r"handbook|supervisor|manager|co-?workers?|witness\w*)\b|\[[A-Z]+(?:_\d+)?\]",
+    re.IGNORECASE,
+)
+
+
+def _later_sentence_owner(text: str, spans: list[tuple[int, int]], qs: int, qe: int) -> tuple[tuple[int, int], int] | None:
+    """A quotation in a later sentence than any citation ('In X, 1 U.S. 1, the Court addressed Y. It held that
+    "..."') would otherwise go unchecked. It belongs to the nearest preceding citation in the same paragraph,
+    unless its sentence attributes it to a fact source such as the complaint or a witness."""
+    before = [(ce, i) for i, (cs, ce) in enumerate(spans) if ce <= qs and not re.search(r"\n\s*\n", text[ce:qs])]
+    if not before or any(cs < qe and qs < ce for cs, ce in spans):
+        return None
+    ce, i = max(before)
+    lead = text[max(ce, max([s for s in sentence_starts(text, spans) if s <= qs], default=0)):qs]
+    if _FACT_SOURCE.search(lead):
+        return None
+    return (2, qs - ce), i
 
 
 def _law_cites(text: str) -> list[ExtractedCitation]:

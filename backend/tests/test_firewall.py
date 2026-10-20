@@ -117,3 +117,28 @@ def test_report_summary(fw):
     assert r.summary() == "6 checked: 3 verified, 2 warning, 1 blocked"
     assert not r.exportable and len(r.removed()) == 1 and len(r.warnings()) == 2
     assert FirewallReport([]).summary() == "0 checked: 0 verified"
+
+
+def test_quotation_in_the_sentence_after_its_citation_is_checked(fw):
+    from stare.agents.memo_firewall import check_memo, export_violations
+    from stare.schemas import Memo
+
+    text = ("In Univ. of Tex. Sw. Med. Ctr. v. Nassar, 570 U.S. 338 (2013) [1], the Court addressed causation. "
+            f'It held that "{MISQUOTE}." Other prose stays.')
+    c = fw.verify_text(text)[0]
+    assert c.citation.quote.startswith("an employer is strictly liable") and c.status == "blocked"
+    clean, removed = fw.filter_text(text, [c])
+    assert clean == "Other prose stays." and removed  # the quotation does not stay behind unchecked
+    memo = Memo(title="t", question_presented="q", issue="i", rule=text, application="a", conclusion="c")
+    assert export_violations(memo, fw)
+    cleaned, _ = check_memo(memo, fw)
+    assert MISQUOTE not in cleaned.rule and not export_violations(cleaned, fw)
+    good = fw.verify_text(text.replace(MISQUOTE, NASSAR_QUOTE))[0]
+    assert good.status == "verified" and next(g for g in good.gates if g.gate == 3).outcome == "pass"
+
+
+def test_quotation_from_the_complaint_after_a_citation_is_not_attached(fw):
+    text = ("Univ. of Tex. Sw. Med. Ctr. v. Nassar, 570 U.S. 338 (2013), requires but-for causation. "
+            'The complaint alleges that "the manager fired her two days after the charge."')
+    c = fw.verify_text(text)[0]
+    assert c.citation.quote == "" and c.status == "verified"

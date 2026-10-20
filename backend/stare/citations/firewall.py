@@ -146,17 +146,18 @@ class CitationFirewall:
         return self.verify_citation(cite)
 
     def filter_text(self, text: str, checks: list[CitationCheck]) -> tuple[str, list[str]]:
-        """Remove every sentence that contains a blocked or unresolved citation."""
+        """Remove every sentence that contains a blocked or unresolved citation, or a quotation attached to one
+        (a quotation may sit in the sentence after its citation, and must not stay behind unchecked)."""
         bad = [c for c in checks if c.status in _REMOVED and c.citation.span[1] <= len(text)]
         if not bad:
             return text, []
-        protected = [c.citation.span for c in checks]
+        # a full stop inside a quotation does not end the sentence; the one just before the closing mark does
+        protected = [c.citation.span for c in checks] + [(qs, qe - 2) for c in checks for qs, qe in c.citation.quote_spans]
         starts = sentence_starts(text, protected) + [len(text)]
         drop: set[int] = set()
         for c in bad:
-            pos = c.citation.span[0]
-            k = max(i for i, s in enumerate(starts[:-1]) if s <= pos)
-            drop.add(k)
+            for pos in [c.citation.span[0]] + [qs for qs, _ in c.citation.quote_spans if qs < len(text)]:
+                drop.add(max(i for i, s in enumerate(starts[:-1]) if s <= pos))
         out, last = [], 0
         for k in sorted(drop):
             s, e = starts[k], starts[k + 1]

@@ -209,6 +209,7 @@ class ExtractedCitation(BaseModel):
     court_hint: str | None = None  # "11th Cir."
     quote: str = ""  # quoted text attached to the citation in the draft
     span: tuple[int, int] = (0, 0)  # char offsets of the citation in the checked text
+    quote_spans: list[tuple[int, int]] = Field(default_factory=list)  # offsets of the attached quotations
     kind: Literal["case", "statute", "regulation", "short_form", "id", "unknown"] = "case"
 
 
