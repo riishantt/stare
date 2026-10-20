@@ -13,6 +13,7 @@ from eyecite.models import (
     ShortCaseCitation,
 )
 
+from stare.citations.quote import QUOTE_SEP
 from stare.citations.reporters import normalize_reporter
 from stare.schemas import ExtractedCitation
 
@@ -245,7 +246,7 @@ def _attach_quotes(cites: list[ExtractedCitation], text: str) -> None:
             assigned.setdefault(best[1], []).append((qs, inner))
     for i, qs in assigned.items():
         qs.sort()
-        cites[i].quote = " ... ".join(q for _, q in qs)
+        cites[i].quote = QUOTE_SEP.join(q for _, q in qs)  # separate quotations, each checked on its own
 
 
 def _law_cites(text: str) -> list[ExtractedCitation]:

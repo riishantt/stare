@@ -162,6 +162,9 @@ def gate_quote_match(quote: str, opinion_text: str, settings: Settings | None = 
         if whole.score >= settings.quote_warn_threshold:
             return GateResult(gate=3, name="quote_match", outcome="warn", score=whole.score,
                               detail="quotation appears only in a dissenting or concurring opinion, not in the opinion of the court")
+    if m.score >= settings.quote_exact_threshold and m.concern:
+        return GateResult(gate=3, name="quote_match", outcome="warn", score=m.score,
+                          detail=f"every fragment of the quotation is in the opinion, but {m.concern}; read the ellipsis against the opinion")
     if m.score >= settings.quote_exact_threshold:
         return GateResult(gate=3, name="quote_match", outcome="pass", detail="quotation found verbatim (after normalisation)", score=m.score)
     if m.score >= settings.quote_warn_threshold:
