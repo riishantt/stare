@@ -19,7 +19,7 @@ on:
 jobs:
   evaluate-llm:
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 180
     env:
       STARE_LLM_PROVIDER: openai_compat
       STARE_LLM_BASE_URL: https://openrouter.ai/api/v1
