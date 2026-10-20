@@ -18,6 +18,7 @@ from stare.citations.gates import (
     gate_quote_match,
     good_law_findings,
     is_law,
+    not_checked,
 )
 from stare.citations.index import CitationIndex
 from stare.citations.parser import extract_citations, sentence_starts
@@ -80,15 +81,17 @@ class CitationFirewall:
             elif g3.outcome == "fail":
                 g4 = _skip(4, "good_law", "not run")
             elif ref.opinion_id is None and ref.cluster_id is None:
-                g4 = _skip(4, "good_law", "later treatment not checked: the opinion is not in the local citation network")
+                # e.g. a CAP match: no curated treatment list or citation network covers it, so not verified
+                g4 = not_checked("the opinion is not in the local citation network; check later treatment before relying on it")
             else:
-                findings, scanned = good_law_findings(ref.opinion_id, session, self.client, ref.cluster_id)
+                findings, scanned, checked = good_law_findings(ref.opinion_id, session, self.client, ref.cluster_id)
                 check.treatment = findings
-                g4 = (
-                    GateResult(gate=4, name="good_law", outcome="warn", detail="; ".join(findings))
-                    if findings
-                    else GateResult(gate=4, name="good_law", outcome="pass", detail=f"no negative treatment found ({scanned} citing opinions scanned)")
-                )
+                if findings:
+                    g4 = GateResult(gate=4, name="good_law", outcome="warn", detail="; ".join(findings))
+                elif not checked:
+                    g4 = not_checked("CourtListener's cited-by search is unavailable; check later treatment before relying on it")
+                else:
+                    g4 = GateResult(gate=4, name="good_law", outcome="pass", detail=f"no negative treatment found ({scanned} citing opinions scanned)")
             check.gates.append(g4)
 
         check.status, check.reason = self._status([g2, g3, g4], cite)
@@ -115,7 +118,8 @@ class CitationFirewall:
             return "blocked", g3.detail
         if g3.outcome == "unresolved":
             return "unresolved", g3.detail
-        warns = [g for g in (g2, g3, g4) if g.outcome == "warn"]
+        # Gate 4 unresolved = later treatment not checked: exportable for the attorney to review, never "verified"
+        warns = [g for g in (g2, g3, g4) if g.outcome == "warn" or (g is g4 and g.outcome == "unresolved")]
         if warns:
             return "warning", " | ".join(f"{g.name}: {g.detail}" for g in warns)
         parts = [g2.detail] + ([g3.detail] if g3.outcome == "pass" else []) + ["no negative treatment found"] * (g4.outcome == "pass")

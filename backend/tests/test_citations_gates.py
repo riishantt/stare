@@ -123,7 +123,7 @@ def test_gate4_curated_treatment(session):
     g = gate_good_law(ops["toyota"].id, session)
     assert g.outcome == "warn" and "superseded by statute" in g.detail and "ADA Amendments Act of 2008" in g.detail
     assert gate_good_law(ops["mcd"].id, session).outcome == "pass"
-    assert gate_good_law(None, session).outcome == "skip"
+    assert gate_good_law(None, session).outcome == "unresolved"  # nothing to check against: not good law by default
 
 
 def test_gate4_citing_case_context_scan(session):
@@ -187,6 +187,34 @@ def test_gate4_cited_by_snippets_from_api(session, settings):
         return httpx.Response(200, json={"results": [{"cluster_id": 2, "caseName": "Later v. X", "opinions": [{"snippet": "this rule is no longer good law"}]}]})
     g = gate_good_law(ops["mcd"].id, session, mock_client(settings, h), cluster_id=5)
     assert g.outcome == "warn" and "Later v. X" in g.detail
+
+
+def test_gate4_not_checked_is_not_reported_as_good_law(session, settings):
+    """CourtListener down and no local record: later treatment was not checked, so the gate must not pass."""
+    import httpx
+    g = gate_good_law(None, session, mock_client(settings, lambda req: httpx.Response(503)), cluster_id=5)
+    assert g.outcome == "unresolved" and "not checked" in g.detail
+    assert gate_good_law(None, session).outcome == "unresolved"
+    # the API answering "no citing opinions" is a check
+    empty = gate_good_law(None, session, mock_client(settings, lambda req: httpx.Response(200, json={"results": []})),
+                          cluster_id=5)
+    assert empty.outcome == "pass"
+
+
+def test_firewall_warns_when_good_law_was_not_checked(session_factory, settings):
+    import httpx
+
+    from stare.citations.firewall import CitationFirewall
+
+    def handler(req):
+        if req.url.path.endswith("/search/") and "cites:" in req.url.params.get("q", ""):
+            return httpx.Response(503)  # cited-by search unavailable
+        return httpx.Response(200, json={"results": [{"cluster_id": 9, "caseName": "Burwell v. Hobby Lobby Stores, Inc.",
+                                                      "citation": ["573 U.S. 682"], "dateFiled": "2014-06-30"}]})
+    fw = CitationFirewall(session_factory, settings, client=mock_client(settings, handler))
+    c = fw.verify_text("Burwell v. Hobby Lobby Stores, Inc., 573 U.S. 682 (2014).")[0]
+    assert c.status == "warning" and c.exportable and "good-law status not checked" in c.reason
+    assert next(g for g in c.gates if g.gate == 4).outcome == "unresolved"
 
 
 def test_gate2_anonymous_search_miss_is_unresolved_not_nonexistent(session, settings):

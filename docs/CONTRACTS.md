@@ -143,7 +143,8 @@ class CitationFirewall:
 
 Status rules: Gate 2 fail or Gate 3 fail → `blocked`. Gate 2 unresolved (API down and not in the
 local index) → `unresolved` (never exportable). Gate 3 warn or Gate 4 warn → `warning` (shown to the
-attorney, never removed silently). Otherwise → `verified`. The six Mata v. Avianca fabrications must
+attorney, never removed silently). Gate 4 `unresolved` (good-law status not checked: no local record, as for
+a CAP-only match, and no CourtListener cited-by answer) → `warning` too, never `verified`. Otherwise → `verified`. The six Mata v. Avianca fabrications must
 all be `blocked` (test: `tests/test_mata_fixture.py`). Statute citations are verified against
 `StatuteSection`.
 

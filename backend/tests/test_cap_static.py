@@ -61,8 +61,10 @@ def test_firewall_verifies_and_blocks_through_cap(session_factory, settings, mon
             "See Varghese v. China Southern Airlines Co., 925 F.3d 1339 (11th Cir. 2019).")
     checks = {c.citation.cite: c for c in fw.verify_text(text)}
     good, fake = checks["526 U.S. 795"], checks["925 F.3d 1339"]
-    assert good.status == "verified" and good.source == "cap"
+    # exists and the quotation matches, but no treatment source covers a CAP-only case: a warning, not verified
+    assert good.status == "warning" and good.exportable and good.source == "cap"
     assert next(g for g in good.gates if g.gate == 3).outcome == "pass"
+    assert next(g for g in good.gates if g.gate == 4).outcome == "unresolved" and "not checked" in good.reason
     assert fake.status == "blocked" and "no case begins" in fake.reason
 
 

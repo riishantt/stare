@@ -177,6 +177,7 @@ def gate_quote_match(quote: str, opinion_text: str, settings: Settings | None = 
 # ----------------------------------------------------------------------------------------------
 
 _MAX_EDGES = 400
+NOT_CHECKED = "good-law status not checked"  # Gate 4 consulted no treatment source: never reported as good law
 
 
 @lru_cache(maxsize=1)
@@ -191,10 +192,13 @@ def good_law_findings(
     session: Session,
     client: CourtListenerClient | None = None,
     cluster_id: int | None = None,
-) -> tuple[list[str], int]:
-    """(treatment strings, number of citing opinions scanned)."""
+) -> tuple[list[str], int, bool]:
+    """(treatment strings, number of citing opinions scanned, whether any treatment source was consulted).
+    A local opinion is checked against the curated treatment list and the local citation network; a
+    CourtListener cluster only when its cited-by search answered."""
     out: list[str] = []
     scanned = 0
+    checked = opinion_id is not None
     if opinion_id is not None:
         for t in session.scalars(select(Treatment).where(Treatment.opinion_id == opinion_id)):
             label = t.kind.replace("_", " ")
@@ -225,12 +229,17 @@ def good_law_findings(
                 out.append(f"{f.label} by {who}: “{f.snippet[:220]}”")
     if client is not None and cluster_id is not None:
         rows = client.citing_opinions(cluster_id, limit=50)
+        checked = checked or rows is not None
         for r in rows or []:
             scanned += 1
             found = scan_context(r.get("snippet") or "", [], require_mention=False, limit=1)
             if found:
                 out.append(f"{found[0].label} by {r.get('case_name') or 'a citing opinion'}: “{found[0].snippet[:220]}”")
-    return list(dict.fromkeys(out)), scanned
+    return list(dict.fromkeys(out)), scanned, checked
+
+
+def not_checked(why: str) -> GateResult:
+    return GateResult(gate=4, name="good_law", outcome="unresolved", detail=f"{NOT_CHECKED}: {why}")
 
 
 def gate_good_law(
@@ -240,8 +249,10 @@ def gate_good_law(
     cluster_id: int | None = None,
 ) -> GateResult:
     if opinion_id is None and cluster_id is None:
-        return GateResult(gate=4, name="good_law", outcome="skip", detail="no record to check for later treatment")
-    findings, scanned = good_law_findings(opinion_id, session, client, cluster_id)
+        return not_checked("no record to check for later treatment")
+    findings, scanned, checked = good_law_findings(opinion_id, session, client, cluster_id)
+    if not findings and not checked:
+        return not_checked("CourtListener's cited-by search is unavailable")
     if findings:
         shown = [f if len(f) <= 260 else f[:257].rsplit(" ", 1)[0] + "…" for f in findings[:3]]
         more = f" (+{len(findings) - 3} more)" if len(findings) > 3 else ""
