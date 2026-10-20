@@ -35,6 +35,23 @@ def test_lookup_listing_and_cache(settings, monkeypatch):
     assert len(calls) == n  # served from the disk cache
 
 
+def test_unreachable_cap_backs_off_after_two_failures(settings, monkeypatch):
+    monkeypatch.setattr(settings, "cap_lookup_enabled", True)
+    calls, now = [], [0.0]
+
+    def down(request):
+        calls.append(str(request.url))
+        raise httpx.ConnectTimeout("timed out", request=request)
+
+    cap = CAPStaticClient(settings, transport=httpx.MockTransport(down), clock=lambda: now[0])
+    for vol in ("501", "502", "503", "504"):
+        assert cap.lookup(vol, "U.S.", "1") is None
+    assert len(calls) == 2  # the third and fourth lookups do not wait on the network
+    now[0] += 301
+    cap.lookup("505", "U.S.", "1")
+    assert len(calls) == 3  # tried again after the back-off
+
+
 def test_firewall_verifies_and_blocks_through_cap(session_factory, settings, monkeypatch):
     monkeypatch.setattr(settings, "cap_lookup_enabled", True)
     fw = CitationFirewall(session_factory, settings)
@@ -47,3 +64,34 @@ def test_firewall_verifies_and_blocks_through_cap(session_factory, settings, mon
     assert good.status == "verified" and good.source == "cap"
     assert next(g for g in good.gates if g.gate == 3).outcome == "pass"
     assert fake.status == "blocked" and "no case begins" in fake.reason
+
+
+def test_cap_check_survives_persistence_and_export(session_factory, settings, monkeypatch):
+    """A check whose source is CAP is stored as JSON and re-validated by the exporter and the memo revision."""
+    from stare.agents.state import dump, load_authorities, load_checks
+    from stare.api.auth import create_user
+    from stare.db.models import CaseFile, CitationCheckRow, ResearchRun
+    from stare.export.docx_exporter import MemoExporter
+    from stare.schemas import Authority, Memo
+
+    monkeypatch.setattr(settings, "cap_lookup_enabled", True)
+    fw = CitationFirewall(session_factory, settings)
+    fw.cap = CAPStaticClient(settings, transport=_transport([]))
+    check = fw.verify_text("Cleveland v. Policy Management Systems Corp., 526 U.S. 795 (1999).")[0]
+    assert check.source == "cap"
+    with session_factory() as s:
+        u = create_user(s, "A", "a@firm.test", "correct-horse-battery", "attorney")
+        case = CaseFile(matter_number="M-1", title="t", user_id=u.id)
+        s.add(case)
+        s.flush()
+        run = ResearchRun(case_id=case.id, created_by=u.id, thread_id="t1")
+        s.add(run)
+        s.flush()
+        s.add(CitationCheckRow(run_id=run.id, raw_citation=check.citation.raw, status=check.status, check_json=dump(check)))
+        s.commit()
+        stored = [r.check_json for r in s.query(CitationCheckRow).all()]
+    assert load_checks(stored)[0].source == "cap"
+    a = Authority(key="cap:1", kind="case", citation="526 U.S. 795", verification=check)
+    assert load_authorities([dump(a)])[0].verification.source == "cap"
+    memo = Memo(title="t", question_presented="q", issue="i", rule="r", application="a", conclusion="c")
+    assert MemoExporter().to_docx(memo, {"checks": stored})

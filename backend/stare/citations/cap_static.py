@@ -11,6 +11,8 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
+import time
+from collections.abc import Callable
 from pathlib import Path
 
 import httpx
@@ -26,12 +28,16 @@ SLUGS = {
 
 
 class CAPStaticClient:
-    def __init__(self, settings, *, transport: httpx.BaseTransport | None = None, timeout: float = 8.0):
+    def __init__(self, settings, *, transport: httpx.BaseTransport | None = None, timeout: float = 8.0,
+                 clock: Callable[[], float] = time.monotonic):
         self.enabled = bool(getattr(settings, "cap_lookup_enabled", True))
         self.cache = Path(settings.cache_dir) / "cap"
         self._transport = transport
         self._timeout = timeout
         self._http: httpx.Client | None = None
+        self._clock = clock
+        self._failures = 0
+        self._down_until = 0.0
 
     def _get_json(self, url: str):
         f = self.cache / (hashlib.sha256(url.encode()).hexdigest()[:40] + ".json")
@@ -40,6 +46,25 @@ class CAPStaticClient:
                 return json.loads(f.read_text())
             except ValueError:
                 pass
+        # Like the CourtListener client: after two consecutive failures stop asking for five minutes, so a
+        # flaky network costs at most two timeouts instead of one per uncached lookup (NFR-06).
+        if self._clock() < self._down_until:
+            return None
+        data = self._fetch(url)
+        if data is None:
+            self._failures += 1
+            if self._failures >= 2:
+                log.warning("CAP static files unavailable; not asking again for 5 minutes")
+                self._down_until = self._clock() + 300
+                self._failures = 0
+            return None
+        self._failures = 0
+        self.cache.mkdir(parents=True, exist_ok=True)
+        f.write_text(json.dumps(data))
+        return data
+
+    def _fetch(self, url: str):
+        """JSON body, {"__missing__": True} for a 404, or None (unavailable). Never raises."""
         if self._http is None:
             self._http = httpx.Client(transport=self._transport, timeout=self._timeout,
                                       headers={"User-Agent": "stare-capstone/0.1"})
@@ -49,17 +74,13 @@ class CAPStaticClient:
             log.warning("CAP static request failed: %s", e)
             return None
         if r.status_code == 404:
-            data = {"__missing__": True}
-        elif r.status_code >= 400:
+            return {"__missing__": True}
+        if r.status_code >= 400:
             return None
-        else:
-            try:
-                data = r.json()
-            except ValueError:
-                return None
-        self.cache.mkdir(parents=True, exist_ok=True)
-        f.write_text(json.dumps(data))
-        return data
+        try:
+            return r.json()
+        except ValueError:
+            return None
 
     def covers(self, reporter: str | None) -> bool:
         return self.enabled and (reporter or "") in SLUGS

@@ -33,7 +33,7 @@ class OpinionRef:
 
     case_name: str
     cite: str
-    source: str  # local | cache | courtlistener | statute_index
+    source: str  # local | cap | cache | courtlistener | statute_index (CitationCheck.source)
     opinion_id: int | None = None
     cluster_id: int | None = None
     section_id: int | None = None

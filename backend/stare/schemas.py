@@ -219,7 +219,7 @@ class CitationCheck(BaseModel):
     reason: str = ""  # one line for the source card: "no matching opinion in index or API"
     opinion_id: int | None = None
     matched_case_name: str | None = None
-    source: Literal["local", "cache", "courtlistener", "statute_index"] | None = None
+    source: Literal["local", "cap", "cache", "courtlistener", "statute_index"] | None = None
     url: str | None = None
     treatment: list[str] = Field(default_factory=list)  # e.g. ["superseded by statute: ADA Amendments Act of 2008"]
 
