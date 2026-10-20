@@ -32,11 +32,11 @@ jobs:
       run:
         working-directory: backend
     steps:
+      - uses: actions/checkout@v4
       - name: Check the secret and the model
         run: |
           if [ -z "$STARE_LLM_API_KEY" ]; then echo "Add the OPENROUTER_API_KEY repository secret first." && exit 1; fi
           case "$STARE_LLM_MODEL" in *:free) ;; *) echo "Refusing a non-free model: $STARE_LLM_MODEL" && exit 1 ;; esac
-      - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
       - name: System packages
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends tesseract-ocr
