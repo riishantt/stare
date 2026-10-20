@@ -166,6 +166,15 @@ _NEUTRAL_RE = re.compile(
     r"(?:\s+App\.?)?)\s+(?P<page>\d[\w\-]*)"
 )
 
+# --- case names followed by a citation the parser cannot read ---------------------------------------
+# "Smith v. Jones, No. 3:19-cv-01234, slip op. at 5 (N.D. Tex. 2020)" or "Doe v. Roe, 999 F.5th 123": a docket
+# number or an unknown reporter right after "X v. Y,". Never checkable, so never silently ignored.
+_UNPARSED_TAIL = re.compile(
+    r"(?:(?:Civ(?:il)?\.?\s+(?:A(?:ction)?\.?\s+)?|Case\s+|Docket\s+)?Nos?\.\s*\d[\w:\-–]*(?:\.\d[\w:\-–]*)*"
+    r"|\d{1,4}\s+[A-Z][A-Za-z.'’]*(?:\s?[A-Za-z0-9.'’]+){0,3}?\s+\d{1,6}\b)"
+)
+_UNPARSED_REST = re.compile(r"(?:,?\s*(?:slip\s+op\.\s*)?(?:at\s+)?\*?\d+(?:[-–]\d+)?(?![\w.]))*(?:\s*\([^()]{0,80}\))?")
+
 _QUOTE_RE = re.compile(r"“([^”]{3,}?)”|\"([^\"]{3,}?)\"", re.DOTALL)
 _MONTH = r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Sept|Oct|Nov|Dec)[a-z]*\.?"
 
@@ -297,6 +306,25 @@ def _law_cites(text: str) -> list[ExtractedCitation]:
     return out
 
 
+def _unparsed_case_refs(text: str, covered: list[tuple[int, int]]) -> list[ExtractedCitation]:
+    """'X v. Y, <docket number or unknown reporter>' that no other pass parsed: kind 'unknown', which Gate 1
+    cannot pass. A bare case name ('the McDonnell Douglas framework') is not a citation and is not reported,
+    nor is a caption with a redaction placeholder (the client's own matter)."""
+    out: list[ExtractedCitation] = []
+    for m in _UNPARSED_TAIL.finditer(text):
+        cs = m.start()
+        if any(cs < e and s < m.end() for s, e in covered + [o.span for o in out]):
+            continue
+        if not text[:cs].rstrip().endswith(","):
+            continue
+        name, start = _case_name_before(text, cs)
+        if not name or "[" in name:
+            continue
+        end = m.end() + _UNPARSED_REST.match(text, m.end()).end() - m.end()
+        out.append(ExtractedCitation(raw=text[start:end].strip(), cite="", case_name=name, span=(start, end), kind="unknown"))
+    return out
+
+
 _EMPHASIS = re.compile(r"\*+(?=[A-Za-z(])|(?<=[A-Za-z.,)])\*+")
 
 
@@ -376,6 +404,7 @@ def extract_citations(text: str) -> list[ExtractedCitation]:
 
     items = [(c, ec) for c, ec in items if not overlaps(ec.span, law_spans)]
     items += [(None, ec) for ec in laws]
+    items += [(None, ec) for ec in _unparsed_case_refs(text, [ec.span for _, ec in items])]
     items.sort(key=lambda p: p[1].span[0])
 
     # resolve short forms with eyecite; ids are resolved to the preceding authority in document order

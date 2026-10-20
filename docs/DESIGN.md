@@ -68,14 +68,18 @@ gate).
 
 | Gate | Module | Check | Outcome |
 |---|---|---|---|
-| 1 Extract | `citations/parser.py` | eyecite full, short-form and id. citations; regex fallback for statutes, regulations and neutral/WL cites; attaches the quotation in the same sentence | `fail` if unparseable |
+| 1 Extract | `citations/parser.py` | eyecite full, short-form and id. citations; regex fallback for statutes, regulations and neutral/WL cites; attaches the quotation in the same sentence, or a quotation in a later sentence of the same paragraph that no citation introduced (unless attributed to the complaint, a witness or similar); reports "X v. Y" followed by a docket number or an unknown reporter as an unparseable citation | `fail` if unparseable |
 | 2 Exists | `citations/gates.py`, `index.py`, `courtlistener.py` | volume/reporter/page in the local citation index → Caselaw Access Project volume listings (static.case.law; a covered volume with no case beginning at that page proves non-existence) → CourtListener API; **case-name similarity ≥ 0.60** with the opinion found there | `fail` (not found or name mismatch), `unresolved` (API unavailable, or missing only from CourtListener's anonymous search index) |
-| 3 Quote | `citations/quote.py` | normalised exact match passes; similarity ≥ 0.90 warns; lower fails. Ellipsis fragments must appear in order. A quote found only in a dissent or concurrence warns | `pass` / `warn` / `fail` / `skip` |
-| 4 Good law | `citations/gates.py`, `treatment.py` | curated `Treatment` rows (e.g. superseded by the ADAAA); negative edges; citing-opinion text scan. The scan requires the phrase to apply *to* this case and the citing court to have authority over it | `warn` (never silently removed) |
+| 3 Quote | `citations/quote.py` | normalised exact match passes; similarity ≥ 0.90 warns; lower fails. Ellipsis fragments must appear in order; a fragment under three words, a short omission containing a negation, or fragments far apart warn. Separate quotations attached to one citation are matched independently. A quote found only in a dissent or concurrence warns | `pass` / `warn` / `fail` / `skip` |
+| 4 Good law | `citations/gates.py`, `treatment.py` | curated `Treatment` rows (e.g. superseded by the ADAAA); negative edges; citing-opinion text scan. The scan requires the phrase to apply *to* this case and the citing court to have authority over it. With no local record and no CourtListener cited-by answer (e.g. a CAP-only match) the gate is `unresolved`: good-law status not checked | `warn` (never silently removed); `unresolved` |
 
-Status: Gate 2 or 3 `fail` → **blocked**; `unresolved` → **unresolved** (never exportable); any
-`warn` → **warning**; otherwise **verified**. `CitationFirewall.filter_text` removes whole sentences
-whose citations are blocked or unresolved.
+Status: Gate 2 or 3 `fail` → **blocked**; Gate 1 `fail` or Gate 2/3 `unresolved` → **unresolved** (never exportable);
+any `warn`, or Gate 4 `unresolved` → **warning**; otherwise **verified**. `CitationFirewall.filter_text`
+removes whole sentences whose citations are blocked or unresolved, and the sentences holding their quotations.
+
+Known limits: a quotation with no citation anywhere before it in its paragraph is not checked, and a
+case named without any citation ("the McDonnell Douglas framework", "Smith v. Jones held") is not a
+citation and is not reported. Both are left to the attorney's review of the memo.
 
 ## 3. Authority ranking
 

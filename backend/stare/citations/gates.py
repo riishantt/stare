@@ -48,6 +48,10 @@ class OpinionRef:
 
 
 def gate_extract(cite: ExtractedCitation) -> GateResult:
+    if cite.kind == "unknown" and cite.case_name and not cite.cite:
+        return GateResult(gate=1, name="extract", outcome="fail", detail=(
+            f"'{cite.raw}' names a case but gives no citation the Firewall can check (a docket number or an unknown "
+            "reporter); verify it by hand"))
     if cite.kind in ("id", "short_form") and not (cite.volume and cite.reporter and cite.page):
         return GateResult(gate=1, name="extract", outcome="fail", detail=f"'{cite.raw}' has no antecedent citation")
     if not (cite.volume and cite.reporter and cite.page):

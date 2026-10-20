@@ -137,6 +137,16 @@ def test_quotation_in_the_sentence_after_its_citation_is_checked(fw):
     assert good.status == "verified" and next(g for g in good.gates if g.gate == 3).outcome == "pass"
 
 
+def test_docket_or_unknown_reporter_citation_is_not_exportable(fw):
+    text = ("Intro stays. See Smith v. Jones, No. 3:19-cv-01234, slip op. at 5 (N.D. Tex. 2020). "
+            "Doe v. Roe, 999 F.5th 123 (5th Cir. 2024), agrees. Outro stays.")
+    checks = fw.verify_text(text)
+    assert [c.status for c in checks] == ["unresolved", "unresolved"] and not any(c.exportable for c in checks)
+    assert "no citation the Firewall can check" in checks[0].reason
+    clean, removed = fw.filter_text(text, checks)
+    assert clean == "Intro stays. Outro stays." and len(removed) == 2
+
+
 def test_quotation_from_the_complaint_after_a_citation_is_not_attached(fw):
     text = ("Univ. of Tex. Sw. Med. Ctr. v. Nassar, 570 U.S. 338 (2013), requires but-for causation. "
             'The complaint alleges that "the manager fired her two days after the charge."')

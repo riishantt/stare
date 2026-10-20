@@ -9,6 +9,26 @@ def one(text):
     return cs[0]
 
 
+@pytest.mark.parametrize("text, raw", [
+    ("See Smith v. Jones, No. 3:19-cv-01234, slip op. at 5 (N.D. Tex. 2020).",
+     "Smith v. Jones, No. 3:19-cv-01234, slip op. at 5 (N.D. Tex. 2020)"),
+    ("Doe v. Roe, 999 F.5th 123 (5th Cir. 2024), held otherwise.", "Doe v. Roe, 999 F.5th 123 (5th Cir. 2024)"),
+    ("In Smith v. Jones, Civil Action No. 4:20-cv-1, the court agreed.", "Smith v. Jones, Civil Action No. 4:20-cv-1"),
+])
+def test_case_name_with_an_unparseable_citation_is_reported(text, raw):
+    c = one(text)
+    assert c.kind == "unknown" and c.cite == "" and c.raw == raw and " v. " in c.case_name
+
+
+@pytest.mark.parametrize("text", [
+    "Under the McDonnell Douglas framework, Smith v. Jones also held that 3 judges agree.",
+    "[PLAINTIFF] v. Acme Logistics, Inc., No. 3:26-cv-00142 (N.D. Tex.), was filed in May.",
+    "Smith v. Jones, the leading case, is discussed below.",
+])
+def test_bare_case_names_and_own_caption_are_not_citations(text):
+    assert extract_citations(text) == []
+
+
 def test_full_case_citation_fields():
     t = "See Varghese v. China Southern Airlines Co., Ltd., 925 F.3d 1339, 1342 (11th Cir. 2019)."
     c = one(t)
