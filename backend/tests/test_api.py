@@ -397,3 +397,19 @@ def test_memo_change_instruction_is_redacted(client, atty):
     r = client.post(f"/api/runs/{rid}/memo/changes", json={"instruction": "Her SSN is 123-45-6789; add causation."},
                     headers=atty)
     assert r.status_code == 200 and "123-45-6789" not in json.dumps(r.json()["memo"])
+
+
+def test_plan_text_typed_by_the_attorney_is_redacted(client, atty):
+    _, run = start_to_plan_gate(client, atty)
+    rid = run["id"]
+    plan = json.loads(json.dumps(run["plan"]))
+    drafted = plan["items"][0]["elements"][0]
+    plan["instructions"] = "Focus on retaliation; client SSN 123-45-6789, email jane@leak.example.com."
+    plan["items"][0]["elements"].append("Mrs. Karen Miller complained to HR, call 214-555-0199")
+    r = client.post(f"/api/runs/{rid}/plan/approve", json=plan, headers=atty)
+    assert r.status_code == 200, r.text
+    blob = json.dumps(r.json()["plan"]) + json.dumps(r.json()["memo"])
+    for leaked in ("123-45-6789", "jane@leak.example.com", "Karen Miller", "214-555-0199"):
+        assert leaked not in blob
+    assert drafted in r.json()["plan"]["items"][0]["elements"]  # drafted text is not re-redacted
+    assert "Focus on retaliation" in r.json()["plan"]["instructions"]

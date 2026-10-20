@@ -73,8 +73,31 @@ def redact_case_record(record: CaseRecord, before: CaseRecord, redactor) -> Case
 @router.post("/runs/{run_id}/plan/approve", response_model=RunOut)
 def approve_plan(run_id: int, plan: ResearchPlan, user: CurrentUser = Depends(require_roles("attorney")),
                  service: ResearchService = Depends(get_service)):
-    service.approve_plan(run_id, plan, user.id)
+    drafted = service.snapshot(run_id)["plan"]
+    before = ResearchPlan.model_validate(drafted) if drafted else None
+    service.approve_plan(run_id, redact_plan(plan, before, misc.get_redactor()), user.id)
     return service.snapshot(run_id)
+
+
+def redact_plan(plan: ResearchPlan, before: ResearchPlan | None, redactor) -> ResearchPlan:
+    """The approved plan goes into the research and memo prompts, so text the attorney typed into it
+    (instruction, elements, issues) passes through the redactor like an edited case record (NFR-03).
+    Text unchanged from the drafted plan, which came from the redacted case record, is kept as it is."""
+    drafted: set[str] = set()
+    if before is not None:
+        drafted = {before.question, before.instructions}
+        for i in before.items:
+            drafted |= {i.issue, *i.elements, *i.queries}
+
+    def red(text: str) -> str:
+        return text if not text or text in drafted else redactor.redact(text).text
+
+    return plan.model_copy(update={
+        "question": red(plan.question),
+        "instructions": red(plan.instructions),
+        "items": [i.model_copy(update={"issue": red(i.issue), "elements": [red(e) for e in i.elements],
+                                       "queries": [red(q) for q in i.queries]}) for i in plan.items],
+    })
 
 
 @router.post("/runs/{run_id}/memo/changes", response_model=RunOut)
