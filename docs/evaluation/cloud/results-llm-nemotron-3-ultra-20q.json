@@ -1,0 +1,418 @@
+{
+  "summary": {
+    "generated_at": "2026-10-20T20:34:56+00:00",
+    "llm_provider": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+    "llm_calls": 218,
+    "llm_failures": 61,
+    "llm_failure_reasons": {
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'properties': {'reason':...ason', 'type': 'object'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 7,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"Babb v. Wilki...he decisional process.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: Expecting value: line 1 column 1 (char 0)": 11,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'reason{': ''}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 4,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': 'The defense w...ry but rather a good-f'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': 'The defense w...heir employment terms.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': 'The defense w...e case of retaliation.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={': ': 'The defense would...ot ongoing violations.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...ment for the employer.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Queries: Expecting value: line 1 column 1 (char 0)": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...r Burlington Northern.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 14,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'The defense would argue...leans S.S. Ass\\'n.': ''}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w... the Mattern standard.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Counter: 1 validation error for _Counter\nqueries\n  Field required [type=missing, input_value={': [': 'Title VII retali...cuit', '   : ': '   : '}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': 'The defense w...annoyances that do not'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _PlanDraft: 2 validation errors for _PlanDraft\nquestion\n  Field required [type=missing, input_value={'id': 'P1', 'issue': \"Wh...tion'], 'checked': True}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing\nitems\n  Field requir": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...facie case is assumed.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Draft: Expecting property name enclosed in double quotes: line 2 column 2 (char 3)": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...rlier time-barred act.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'': {'reason': 'The defe...al of her contract is'}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={': ': \"The defense would...f of unlawful conduct.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Counter: 1 validation error for _Counter\nqueries\n  Field required [type=missing, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={\"The defense would argue...o timely filed claims.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...the retaliation claim.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': 'The defense w...ty and adverse action.'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={\"The defense would invok...f any additional\": None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Counter: 1 validation error for _Counter\nqueries\n  Input should be a valid list [type=list_type, input_value={'items': ['Fifth Circuit...cuit'], 'type': 'array'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/list_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...ng cumulative conduct.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1
+    },
+    "memos_drafted_by_llm": 19,
+    "embedder": "lsa",
+    "reranker": "lexical",
+    "questions": 20,
+    "errors": 0,
+    "retrieval_recall_at_10": 0.85,
+    "citation_accuracy_automated": 1.0,
+    "hallucination_rate": 0.07945205479452055,
+    "unverified_in_export": 0,
+    "latency_p95_s": 238.95460000000003,
+    "latency_mean_s": 146.11804999999998,
+    "mata": {
+      "fabricated": 6,
+      "extracted": 6,
+      "blocked": 6,
+      "unresolved": 0,
+      "exportable": 0,
+      "statuses": {
+        "925 F.3d 1339": "blocked",
+        "2013 IL App (1st) 111279-U": "blocked",
+        "905 F. Supp. 2d 121": "blocked",
+        "2019 WL 4639462": "blocked",
+        "2017 WL 2418825": "blocked",
+        "174 F.3d 366": "blocked"
+      },
+      "passed": true
+    },
+    "redaction": {
+      "auto": {
+        "redacted": 27,
+        "total": 27,
+        "coverage": 1.0
+      },
+      "regex": {
+        "redacted": 26,
+        "total": 27,
+        "coverage": 0.9629629629629629
+      }
+    },
+    "targets": {
+      "citation_accuracy": ">= 0.94",
+      "hallucination_rate": "<= 0.02",
+      "mata": "6 of 6",
+      "unverified_in_export": "0",
+      "recall_at_10": ">= 0.80",
+      "redaction": "100%",
+      "latency_p95_s": "< 90"
+    }
+  },
+  "questions": [
+    {
+      "id": "G001",
+      "recall_at_10": 1.0,
+      "memo_citations": 15,
+      "memo_verified": 15,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 273.679,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G002",
+      "recall_at_10": 1.0,
+      "memo_citations": 13,
+      "memo_verified": 12,
+      "memo_warning": 1,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 216.598,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G003",
+      "recall_at_10": 1.0,
+      "memo_citations": 24,
+      "memo_verified": 23,
+      "memo_warning": 1,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 124.115,
+      "found_expected": [
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G004",
+      "recall_at_10": 1.0,
+      "memo_citations": 19,
+      "memo_verified": 17,
+      "memo_warning": 2,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 182.192,
+      "found_expected": [
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G005",
+      "recall_at_10": 1.0,
+      "memo_citations": 13,
+      "memo_verified": 13,
+      "memo_warning": 0,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 106.129,
+      "found_expected": [
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G006",
+      "recall_at_10": 1.0,
+      "memo_citations": 16,
+      "memo_verified": 15,
+      "memo_warning": 1,
+      "removed_from_memo": 1,
+      "export_violations": 0,
+      "latency_s": 128.255,
+      "found_expected": [
+        "548 U.S. 53",
+        "104 F.3d 702"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G007",
+      "recall_at_10": 1.0,
+      "memo_citations": 27,
+      "memo_verified": 21,
+      "memo_warning": 6,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 122.469,
+      "found_expected": [
+        "532 U.S. 268"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G008",
+      "recall_at_10": 1.0,
+      "memo_citations": 10,
+      "memo_verified": 10,
+      "memo_warning": 0,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 127.369,
+      "found_expected": [
+        "532 U.S. 268"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G009",
+      "recall_at_10": 1.0,
+      "memo_citations": 14,
+      "memo_verified": 14,
+      "memo_warning": 0,
+      "removed_from_memo": 1,
+      "export_violations": 0,
+      "latency_s": 57.908,
+      "found_expected": [
+        "555 U.S. 271"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G010",
+      "recall_at_10": 1.0,
+      "memo_citations": 31,
+      "memo_verified": 31,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 159.089,
+      "found_expected": [
+        "562 U.S. 170"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "offline fallback (openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free unavailable)",
+      "error": ""
+    },
+    {
+      "id": "G011",
+      "recall_at_10": 1.0,
+      "memo_citations": 11,
+      "memo_verified": 11,
+      "memo_warning": 0,
+      "removed_from_memo": 1,
+      "export_violations": 0,
+      "latency_s": 151.409,
+      "found_expected": [
+        "562 U.S. 170"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G012",
+      "recall_at_10": 0.0,
+      "memo_citations": 10,
+      "memo_verified": 9,
+      "memo_warning": 1,
+      "removed_from_memo": 1,
+      "export_violations": 0,
+      "latency_s": 148.509,
+      "found_expected": [],
+      "missed_expected": [
+        "492 F.3d 551",
+        "42 U.S.C. \u00a7 2000e-3"
+      ],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G013",
+      "recall_at_10": 1.0,
+      "memo_citations": 25,
+      "memo_verified": 18,
+      "memo_warning": 7,
+      "removed_from_memo": 1,
+      "export_violations": 0,
+      "latency_s": 151.404,
+      "found_expected": [
+        "42 U.S.C. \u00a7 2000e-3"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G014",
+      "recall_at_10": 1.0,
+      "memo_citations": 20,
+      "memo_verified": 18,
+      "memo_warning": 2,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 129.845,
+      "found_expected": [
+        "492 F.3d 551",
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G015",
+      "recall_at_10": 1.0,
+      "memo_citations": 11,
+      "memo_verified": 11,
+      "memo_warning": 0,
+      "removed_from_memo": 2,
+      "export_violations": 0,
+      "latency_s": 237.127,
+      "found_expected": [
+        "562 U.S. 411"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G016",
+      "recall_at_10": 0.5,
+      "memo_citations": 13,
+      "memo_verified": 11,
+      "memo_warning": 2,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 81.414,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [
+        "281 F.3d 1054"
+      ],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G017",
+      "recall_at_10": 1.0,
+      "memo_citations": 15,
+      "memo_verified": 14,
+      "memo_warning": 1,
+      "removed_from_memo": 3,
+      "export_violations": 0,
+      "latency_s": 92.433,
+      "found_expected": [
+        "217 F.3d 1234",
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G018",
+      "recall_at_10": 0.0,
+      "memo_citations": 19,
+      "memo_verified": 16,
+      "memo_warning": 3,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 153.498,
+      "found_expected": [],
+      "missed_expected": [
+        "532 U.S. 268"
+      ],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G019",
+      "recall_at_10": 1.0,
+      "memo_citations": 12,
+      "memo_verified": 11,
+      "memo_warning": 1,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 105.816,
+      "found_expected": [
+        "555 U.S. 271",
+        "42 U.S.C. \u00a7 2000e-3"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G020",
+      "recall_at_10": 0.5,
+      "memo_citations": 18,
+      "memo_verified": 16,
+      "memo_warning": 2,
+      "removed_from_memo": 7,
+      "export_violations": 0,
+      "latency_s": 173.103,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [
+        "530 U.S. 133"
+      ],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    }
+  ]
+}
