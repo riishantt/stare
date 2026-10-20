@@ -1,0 +1,115 @@
+{
+  "summary": {
+    "generated_at": "2026-10-20T13:33:46+00:00",
+    "llm_provider": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+    "llm_calls": 36,
+    "llm_failures": 7,
+    "llm_failure_reasons": {
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'reason{': ''}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'properties': {'reason':...ason', 'type': 'object'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: Expecting value: line 1 column 1 (char 0)": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'title': 'Reason', 'type...ute mere petty slights'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={': ': \"The defense would...rse employment action.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Input should be a valid string [type=string_type, input_value={'reason': \"The defense w...mity-based inferences.\"}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/string_type": 1,
+      "model returned invalid JSON for _Reason: 1 validation error for _Reason\nreason\n  Field required [type=missing, input_value={'': {'reason': 'The defe...out any resulting dem'}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.14/v/missing": 1
+    },
+    "memos_drafted_by_llm": 3,
+    "embedder": "lsa",
+    "reranker": "lexical",
+    "questions": 3,
+    "errors": 0,
+    "retrieval_recall_at_10": 1.0,
+    "citation_accuracy_automated": 1.0,
+    "hallucination_rate": 0.125,
+    "unverified_in_export": 0,
+    "latency_p95_s": 228.75769999999997,
+    "latency_mean_s": 162.30166666666665,
+    "mata": {
+      "fabricated": 6,
+      "extracted": 6,
+      "blocked": 6,
+      "unresolved": 0,
+      "exportable": 0,
+      "statuses": {
+        "925 F.3d 1339": "blocked",
+        "2013 IL App (1st) 111279-U": "blocked",
+        "905 F. Supp. 2d 121": "blocked",
+        "2019 WL 4639462": "blocked",
+        "2017 WL 2418825": "blocked",
+        "174 F.3d 366": "blocked"
+      },
+      "passed": true
+    },
+    "redaction": {
+      "auto": {
+        "redacted": 27,
+        "total": 27,
+        "coverage": 1.0
+      },
+      "regex": {
+        "redacted": 26,
+        "total": 27,
+        "coverage": 0.9629629629629629
+      }
+    },
+    "targets": {
+      "citation_accuracy": ">= 0.94",
+      "hallucination_rate": "<= 0.02",
+      "mata": "6 of 6",
+      "unverified_in_export": "0",
+      "recall_at_10": ">= 0.80",
+      "redaction": "100%",
+      "latency_p95_s": "< 90"
+    }
+  },
+  "questions": [
+    {
+      "id": "G001",
+      "recall_at_10": 1.0,
+      "memo_citations": 13,
+      "memo_verified": 13,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 99.456,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G002",
+      "recall_at_10": 1.0,
+      "memo_citations": 10,
+      "memo_verified": 10,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 149.933,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    },
+    {
+      "id": "G003",
+      "recall_at_10": 1.0,
+      "memo_citations": 19,
+      "memo_verified": 18,
+      "memo_warning": 1,
+      "removed_from_memo": 6,
+      "export_violations": 0,
+      "latency_s": 237.516,
+      "found_expected": [
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "openai_compat:nvidia/nemotron-3-ultra-550b-a55b:free",
+      "error": ""
+    }
+  ]
+}

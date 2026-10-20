@@ -1,0 +1,106 @@
+{
+  "summary": {
+    "generated_at": "2026-10-20T13:16:59+00:00",
+    "llm_provider": "openai_compat:minimax/minimax-m3.1-flash:free",
+    "llm_calls": 21,
+    "llm_failures": 12,
+    "memos_drafted_by_llm": 0,
+    "embedder": "lsa",
+    "reranker": "lexical",
+    "questions": 3,
+    "errors": 0,
+    "retrieval_recall_at_10": 1.0,
+    "citation_accuracy_automated": 1.0,
+    "hallucination_rate": 0.0,
+    "unverified_in_export": 0,
+    "latency_p95_s": 87.17599999999999,
+    "latency_mean_s": 85.50566666666667,
+    "mata": {
+      "fabricated": 6,
+      "extracted": 6,
+      "blocked": 6,
+      "unresolved": 0,
+      "exportable": 0,
+      "statuses": {
+        "925 F.3d 1339": "blocked",
+        "2013 IL App (1st) 111279-U": "blocked",
+        "905 F. Supp. 2d 121": "blocked",
+        "2019 WL 4639462": "blocked",
+        "2017 WL 2418825": "blocked",
+        "174 F.3d 366": "blocked"
+      },
+      "passed": true
+    },
+    "redaction": {
+      "auto": {
+        "redacted": 27,
+        "total": 27,
+        "coverage": 1.0
+      },
+      "regex": {
+        "redacted": 26,
+        "total": 27,
+        "coverage": 0.9629629629629629
+      }
+    },
+    "targets": {
+      "citation_accuracy": ">= 0.94",
+      "hallucination_rate": "<= 0.02",
+      "mata": "6 of 6",
+      "unverified_in_export": "0",
+      "recall_at_10": ">= 0.80",
+      "redaction": "100%",
+      "latency_p95_s": "< 90"
+    }
+  },
+  "questions": [
+    {
+      "id": "G001",
+      "recall_at_10": 1.0,
+      "memo_citations": 17,
+      "memo_verified": 17,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 85.691,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "offline fallback (openai_compat:minimax/minimax-m3.1-flash:free unavailable)",
+      "error": ""
+    },
+    {
+      "id": "G002",
+      "recall_at_10": 1.0,
+      "memo_citations": 17,
+      "memo_verified": 17,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 87.341,
+      "found_expected": [
+        "570 U.S. 338"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "offline fallback (openai_compat:minimax/minimax-m3.1-flash:free unavailable)",
+      "error": ""
+    },
+    {
+      "id": "G003",
+      "recall_at_10": 1.0,
+      "memo_citations": 17,
+      "memo_verified": 17,
+      "memo_warning": 0,
+      "removed_from_memo": 0,
+      "export_violations": 0,
+      "latency_s": 83.485,
+      "found_expected": [
+        "548 U.S. 53"
+      ],
+      "missed_expected": [],
+      "memo_drafted_by": "offline fallback (openai_compat:minimax/minimax-m3.1-flash:free unavailable)",
+      "error": ""
+    }
+  ]
+}
