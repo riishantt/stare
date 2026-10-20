@@ -1,29 +1,41 @@
 {
   "summary": {
-    "generated_at": "2026-10-17T07:18:57+00:00",
+    "generated_at": "2026-10-20T22:33:30+00:00",
     "llm_provider": "offline",
+    "llm_calls": 0,
+    "llm_failures": 0,
+    "llm_retries": 0,
+    "llm_failure_reasons": {},
+    "memos_drafted_by_llm": 0,
     "embedder": "lsa",
     "reranker": "lexical",
     "questions": 100,
     "errors": 0,
     "retrieval_recall_at_10": 0.86,
+    "memo_citations_kept": 1344,
+    "memo_citations_verified": 1301,
+    "memo_citations_warning": 43,
     "citation_accuracy_automated": 1.0,
+    "citation_accuracy_strict": 0.9680059523809523,
     "hallucination_rate": 0.0,
+    "drafted_citations": 785,
+    "drafted_citations_failed": 0,
+    "hallucination_rate_drafted": 0.0,
     "unverified_in_export": 0,
-    "latency_p95_s": 1.1778,
-    "latency_mean_s": 0.9302800000000001,
+    "latency_p95_s": 1.2310999999999999,
+    "latency_mean_s": 0.9912000000000001,
     "mata": {
       "fabricated": 6,
       "extracted": 6,
-      "blocked": 3,
-      "unresolved": 3,
+      "blocked": 6,
+      "unresolved": 0,
       "exportable": 0,
       "statuses": {
         "925 F.3d 1339": "blocked",
-        "2013 IL App (1st) 111279-U": "unresolved",
+        "2013 IL App (1st) 111279-U": "blocked",
         "905 F. Supp. 2d 121": "blocked",
-        "2019 WL 4639462": "unresolved",
-        "2017 WL 2418825": "unresolved",
+        "2019 WL 4639462": "blocked",
+        "2017 WL 2418825": "blocked",
         "174 F.3d 366": "blocked"
       },
       "passed": true
@@ -59,12 +71,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 2.37,
+      "latency_s": 2.45,
       "found_expected": [
         "570 U.S. 338"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G002",
@@ -74,12 +89,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.999,
+      "latency_s": 1.05,
       "found_expected": [
         "570 U.S. 338"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G003",
@@ -89,12 +107,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.862,
+      "latency_s": 0.902,
       "found_expected": [
         "548 U.S. 53"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G004",
@@ -104,12 +125,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.88,
+      "latency_s": 0.93,
       "found_expected": [
         "548 U.S. 53"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G005",
@@ -119,12 +143,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.823,
+      "latency_s": 0.889,
       "found_expected": [
         "548 U.S. 53"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G006",
@@ -134,13 +161,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.941,
+      "latency_s": 1.003,
       "found_expected": [
         "548 U.S. 53",
         "104 F.3d 702"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G007",
@@ -150,12 +180,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.876,
+      "latency_s": 0.941,
       "found_expected": [
         "532 U.S. 268"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G008",
@@ -165,12 +198,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.853,
+      "latency_s": 0.895,
       "found_expected": [],
       "missed_expected": [
         "532 U.S. 268"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 12,
+      "drafted_failed": 0
     },
     {
       "id": "G009",
@@ -180,12 +216,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.88,
+      "latency_s": 0.921,
       "found_expected": [
         "555 U.S. 271"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 12,
+      "drafted_failed": 0
     },
     {
       "id": "G010",
@@ -195,12 +234,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.849,
+      "latency_s": 0.91,
       "found_expected": [
         "562 U.S. 170"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G011",
@@ -210,12 +252,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.841,
+      "latency_s": 0.893,
       "found_expected": [
         "562 U.S. 170"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 12,
+      "drafted_failed": 0
     },
     {
       "id": "G012",
@@ -225,14 +270,17 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.945,
+      "latency_s": 1.002,
       "found_expected": [
         "42 U.S.C. \u00a7 2000e-3"
       ],
       "missed_expected": [
         "492 F.3d 551"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 10,
+      "drafted_failed": 0
     },
     {
       "id": "G013",
@@ -242,12 +290,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.873,
+      "latency_s": 0.957,
       "found_expected": [
         "42 U.S.C. \u00a7 2000e-3"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G014",
@@ -257,13 +308,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.874,
+      "latency_s": 0.93,
       "found_expected": [
         "492 F.3d 551",
         "548 U.S. 53"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G015",
@@ -273,12 +327,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.958,
+      "latency_s": 1.024,
       "found_expected": [
         "562 U.S. 411"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G016",
@@ -288,13 +345,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.867,
+      "latency_s": 0.926,
       "found_expected": [],
       "missed_expected": [
         "570 U.S. 338",
         "281 F.3d 1054"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G017",
@@ -304,13 +364,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.9,
+      "latency_s": 0.959,
       "found_expected": [
         "217 F.3d 1234",
         "548 U.S. 53"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G018",
@@ -320,12 +383,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.87,
+      "latency_s": 0.918,
       "found_expected": [],
       "missed_expected": [
         "532 U.S. 268"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 11,
+      "drafted_failed": 0
     },
     {
       "id": "G019",
@@ -335,13 +401,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.939,
+      "latency_s": 1.004,
       "found_expected": [
         "555 U.S. 271",
         "42 U.S.C. \u00a7 2000e-3"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 12,
+      "drafted_failed": 0
     },
     {
       "id": "G020",
@@ -351,13 +420,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.875,
+      "latency_s": 0.937,
       "found_expected": [],
       "missed_expected": [
         "530 U.S. 133",
         "570 U.S. 338"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 10,
+      "drafted_failed": 0
     },
     {
       "id": "G021",
@@ -367,12 +439,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.193,
+      "latency_s": 1.29,
       "found_expected": [
         "411 U.S. 792"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G022",
@@ -382,14 +457,17 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.944,
+      "latency_s": 1.007,
       "found_expected": [
         "509 U.S. 502"
       ],
       "missed_expected": [
         "450 U.S. 248"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G023",
@@ -399,12 +477,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.081,
+      "latency_s": 1.149,
       "found_expected": [
         "450 U.S. 248"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G024",
@@ -414,12 +495,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.938,
+      "latency_s": 0.993,
       "found_expected": [
         "509 U.S. 502"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G025",
@@ -429,12 +513,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.016,
+      "latency_s": 1.075,
       "found_expected": [
         "530 U.S. 133"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G026",
@@ -444,12 +531,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.965,
+      "latency_s": 1.035,
       "found_expected": [
         "534 U.S. 506"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G027",
@@ -459,12 +549,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.048,
+      "latency_s": 1.113,
       "found_expected": [
         "539 U.S. 90"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G028",
@@ -474,14 +567,17 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.073,
+      "latency_s": 1.177,
       "found_expected": [
         "539 U.S. 90"
       ],
       "missed_expected": [
         "490 U.S. 228"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G029",
@@ -491,12 +587,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.995,
+      "latency_s": 1.07,
       "found_expected": [],
       "missed_expected": [
         "490 U.S. 228"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G030",
@@ -506,12 +605,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.969,
+      "latency_s": 1.045,
       "found_expected": [
         "590 U.S. 644"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G031",
@@ -521,12 +623,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.052,
+      "latency_s": 1.138,
       "found_expected": [
         "601 U.S. 346"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G032",
@@ -536,12 +641,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.948,
+      "latency_s": 1.025,
       "found_expected": [
         "601 U.S. 346"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G033",
@@ -551,12 +659,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.029,
+      "latency_s": 1.11,
       "found_expected": [
         "546 U.S. 454"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G034",
@@ -566,13 +677,16 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.989,
+      "latency_s": 1.061,
       "found_expected": [
         "574 F.3d 253",
         "245 F.3d 507"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G035",
@@ -582,12 +696,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.011,
+      "latency_s": 1.081,
       "found_expected": [
         "574 F.3d 253"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G036",
@@ -597,14 +714,17 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.048,
+      "latency_s": 1.128,
       "found_expected": [
         "601 U.S. 346"
       ],
       "missed_expected": [
         "492 F.3d 551"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G037",
@@ -614,12 +734,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.01,
+      "latency_s": 1.077,
       "found_expected": [
         "557 U.S. 557"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G038",
@@ -629,12 +752,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.992,
+      "latency_s": 1.056,
       "found_expected": [
         "557 U.S. 557"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G039",
@@ -644,12 +770,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.954,
+      "latency_s": 1.017,
       "found_expected": [],
       "missed_expected": [
         "401 U.S. 424"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G040",
@@ -659,12 +788,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.044,
+      "latency_s": 1.152,
       "found_expected": [
         "424 F.3d 1027"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G041",
@@ -674,13 +806,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.981,
+      "latency_s": 1.044,
       "found_expected": [],
       "missed_expected": [
         "411 U.S. 792",
         "349 F.3d 634"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G042",
@@ -690,12 +825,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.963,
+      "latency_s": 1.042,
       "found_expected": [
         "546 U.S. 500"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G043",
@@ -705,12 +843,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.9,
+      "latency_s": 0.968,
       "found_expected": [
         "513 U.S. 352"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G044",
@@ -720,12 +861,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.995,
+      "latency_s": 1.062,
       "found_expected": [
         "527 U.S. 526"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G045",
@@ -735,12 +879,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.25,
+      "latency_s": 1.357,
       "found_expected": [
         "477 U.S. 57"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G046",
@@ -750,12 +897,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.131,
+      "latency_s": 1.208,
       "found_expected": [
         "510 U.S. 17"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G047",
@@ -765,12 +915,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.104,
+      "latency_s": 1.159,
       "found_expected": [
         "510 U.S. 17"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G048",
@@ -780,12 +933,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.237,
+      "latency_s": 1.317,
       "found_expected": [
         "523 U.S. 75"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G049",
@@ -795,13 +951,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.077,
+      "latency_s": 1.184,
       "found_expected": [
         "524 U.S. 775",
         "524 U.S. 742"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G050",
@@ -811,13 +970,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.007,
+      "latency_s": 1.083,
       "found_expected": [
         "524 U.S. 775",
         "524 U.S. 742"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G051",
@@ -827,12 +989,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.102,
+      "latency_s": 1.17,
       "found_expected": [
         "570 U.S. 421"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G052",
@@ -842,12 +1007,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.031,
+      "latency_s": 1.105,
       "found_expected": [
         "542 U.S. 129"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G053",
@@ -857,13 +1025,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.061,
+      "latency_s": 1.152,
       "found_expected": [],
       "missed_expected": [
         "524 U.S. 775",
         "532 U.S. 268"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G054",
@@ -873,13 +1044,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.22,
+      "latency_s": 1.302,
       "found_expected": [
         "731 F.3d 444",
         "523 U.S. 75"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G055",
@@ -889,12 +1063,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.177,
+      "latency_s": 1.228,
       "found_expected": [
         "924 F.2d 872"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G056",
@@ -904,14 +1081,17 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.101,
+      "latency_s": 1.168,
       "found_expected": [
         "536 U.S. 101"
       ],
       "missed_expected": [
         "419 F.3d 885"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G057",
@@ -921,14 +1101,17 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.008,
+      "latency_s": 1.071,
       "found_expected": [
         "360 F.3d 1103"
       ],
       "missed_expected": [
         "510 U.S. 17"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G058",
@@ -938,13 +1121,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.078,
+      "latency_s": 1.15,
       "found_expected": [
         "570 U.S. 421",
         "524 U.S. 775"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G059",
@@ -954,12 +1140,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.04,
+      "latency_s": 1.117,
       "found_expected": [
         "578 U.S. 547"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G060",
@@ -969,13 +1158,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.041,
+      "latency_s": 1.119,
       "found_expected": [
         "542 U.S. 129",
         "578 U.S. 547"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G061",
@@ -985,12 +1177,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.594,
+      "latency_s": 0.641,
       "found_expected": [
         "600 U.S. 447"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 9,
+      "drafted_failed": 0
     },
     {
       "id": "G062",
@@ -1000,12 +1195,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.609,
+      "latency_s": 0.652,
       "found_expected": [
         "575 U.S. 768"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 9,
+      "drafted_failed": 0
     },
     {
       "id": "G063",
@@ -1015,12 +1213,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.638,
+      "latency_s": 0.691,
       "found_expected": [
         "575 U.S. 768"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 9,
+      "drafted_failed": 0
     },
     {
       "id": "G064",
@@ -1030,13 +1231,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.541,
+      "latency_s": 0.595,
       "found_expected": [
         "358 F.3d 599",
         "600 U.S. 447"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 9,
+      "drafted_failed": 0
     },
     {
       "id": "G065",
@@ -1046,12 +1250,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.745,
+      "latency_s": 0.799,
       "found_expected": [
         "575 U.S. 206"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 9,
+      "drafted_failed": 0
     },
     {
       "id": "G066",
@@ -1061,12 +1268,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.724,
+      "latency_s": 0.77,
       "found_expected": [
         "575 U.S. 206"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 10,
+      "drafted_failed": 0
     },
     {
       "id": "G067",
@@ -1076,13 +1286,16 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.019,
+      "latency_s": 1.074,
       "found_expected": [
         "536 U.S. 101",
         "42 U.S.C. \u00a7 2000e-5"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G068",
@@ -1092,12 +1305,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.005,
+      "latency_s": 1.071,
       "found_expected": [
         "587 U.S. 541"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G069",
@@ -1107,12 +1323,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.955,
+      "latency_s": 1.021,
       "found_expected": [
         "587 U.S. 541"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G070",
@@ -1122,12 +1341,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.052,
+      "latency_s": 1.117,
       "found_expected": [
         "550 U.S. 618"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G071",
@@ -1137,12 +1359,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.864,
+      "latency_s": 0.908,
       "found_expected": [
         "536 U.S. 101"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 12,
+      "drafted_failed": 0
     },
     {
       "id": "G072",
@@ -1152,12 +1377,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.975,
+      "latency_s": 1.036,
       "found_expected": [
         "42 U.S.C. \u00a7 2000e-5"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G073",
@@ -1167,12 +1395,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.93,
+      "latency_s": 0.996,
       "found_expected": [
         "552 U.S. 389"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G074",
@@ -1182,12 +1413,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.747,
+      "latency_s": 0.804,
       "found_expected": [
         "42 U.S.C. \u00a7 12102"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G075",
@@ -1197,13 +1431,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.698,
+      "latency_s": 0.738,
       "found_expected": [
         "527 U.S. 471",
         "42 U.S.C. \u00a7 12102"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G076",
@@ -1213,14 +1450,17 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.758,
+      "latency_s": 0.8,
       "found_expected": [
         "42 U.S.C. \u00a7 12102"
       ],
       "missed_expected": [
         "534 U.S. 184"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G077",
@@ -1230,12 +1470,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.703,
+      "latency_s": 0.746,
       "found_expected": [
         "524 U.S. 624"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G078",
@@ -1245,12 +1488,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.746,
+      "latency_s": 0.791,
       "found_expected": [
         "42 U.S.C. \u00a7 12111"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G079",
@@ -1260,12 +1506,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.839,
+      "latency_s": 0.888,
       "found_expected": [
         "536 U.S. 73"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G080",
@@ -1275,12 +1524,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.876,
+      "latency_s": 0.922,
       "found_expected": [
         "540 U.S. 44"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G081",
@@ -1290,14 +1542,17 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.669,
+      "latency_s": 0.707,
       "found_expected": [
         "29 C.F.R. \u00a7 1630.2"
       ],
       "missed_expected": [
         "42 U.S.C. \u00a7 12112"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G082",
@@ -1307,12 +1562,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.559,
+      "latency_s": 0.6,
       "found_expected": [
         "535 U.S. 391"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G083",
@@ -1322,13 +1580,16 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.65,
+      "latency_s": 0.686,
       "found_expected": [
         "570 F.3d 606",
         "29 C.F.R. \u00a7 1630.2"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G084",
@@ -1338,12 +1599,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.571,
+      "latency_s": 0.591,
       "found_expected": [
         "730 F.3d 450"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G085",
@@ -1353,12 +1617,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.592,
+      "latency_s": 0.618,
       "found_expected": [
         "42 U.S.C. \u00a7 12111"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G086",
@@ -1368,12 +1635,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.739,
+      "latency_s": 0.823,
       "found_expected": [
         "42 U.S.C. \u00a7 12111"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G087",
@@ -1383,12 +1653,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.726,
+      "latency_s": 0.77,
       "found_expected": [
         "511 F.3d 974"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G088",
@@ -1398,12 +1671,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.603,
+      "latency_s": 0.639,
       "found_expected": [
         "42 U.S.C. \u00a7 12203"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 10,
+      "drafted_failed": 0
     },
     {
       "id": "G089",
@@ -1413,12 +1689,15 @@
       "memo_warning": 0,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.627,
+      "latency_s": 0.652,
       "found_expected": [
         "29 C.F.R. \u00a7 1630.2"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G090",
@@ -1428,12 +1707,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.028,
+      "latency_s": 1.084,
       "found_expected": [
         "557 U.S. 167"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G091",
@@ -1443,12 +1725,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.939,
+      "latency_s": 0.992,
       "found_expected": [
         "557 U.S. 167"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G092",
@@ -1458,12 +1743,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.876,
+      "latency_s": 0.934,
       "found_expected": [
         "507 U.S. 604"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G093",
@@ -1473,12 +1761,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.908,
+      "latency_s": 0.96,
       "found_expected": [
         "517 U.S. 308"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G094",
@@ -1488,12 +1779,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.748,
+      "latency_s": 0.78,
       "found_expected": [
         "544 U.S. 228"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 7,
+      "drafted_failed": 0
     },
     {
       "id": "G095",
@@ -1503,12 +1797,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.984,
+      "latency_s": 1.023,
       "found_expected": [
         "540 U.S. 581"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 8,
+      "drafted_failed": 0
     },
     {
       "id": "G096",
@@ -1518,12 +1815,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.877,
+      "latency_s": 0.92,
       "found_expected": [
         "552 U.S. 379"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G097",
@@ -1533,12 +1833,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.948,
+      "latency_s": 1.001,
       "found_expected": [
         "528 U.S. 62"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G098",
@@ -1548,12 +1851,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.929,
+      "latency_s": 0.981,
       "found_expected": [
         "589 U.S. 399"
       ],
       "missed_expected": [],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G099",
@@ -1563,13 +1869,16 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 1.015,
+      "latency_s": 1.063,
       "found_expected": [],
       "missed_expected": [
         "530 U.S. 133",
         "309 F.3d 893"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     },
     {
       "id": "G100",
@@ -1579,12 +1888,15 @@
       "memo_warning": 1,
       "removed_from_memo": 0,
       "export_violations": 0,
-      "latency_s": 0.944,
+      "latency_s": 0.99,
       "found_expected": [],
       "missed_expected": [
         "29 U.S.C. \u00a7 631"
       ],
-      "error": ""
+      "memo_drafted_by": "offline",
+      "error": "",
+      "drafted_citations": 6,
+      "drafted_failed": 0
     }
   ]
 }

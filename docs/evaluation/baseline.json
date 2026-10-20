@@ -3,16 +3,16 @@
   "questions": 100,
   "citations": 563,
   "status_counts": {
-    "verified": 379,
-    "warning": 35,
-    "blocked": 3,
-    "unresolved": 5
+    "verified": 426,
+    "warning": 127,
+    "blocked": 7,
+    "unresolved": 3
   },
-  "citation_accuracy_automated": 0.9786856127886323,
-  "citation_accuracy_resolved": 0.9874551971326165,
-  "hallucination_rate": 0.021314387211367674,
-  "blocked": 6,
-  "unresolved": 5,
+  "citation_accuracy_automated": 0.9769094138543517,
+  "citation_accuracy_resolved": 0.9821428571428571,
+  "hallucination_rate": 0.023090586145648313,
+  "blocked": 7,
+  "unresolved": 3,
   "rows": [
     {
       "id": "G001",
@@ -58,7 +58,7 @@
     {
       "id": "G005",
       "citations": 5,
-      "verified": 4,
+      "verified": 5,
       "statuses": {
         "548 U.S. 53": "verified",
         "555 U.S. 271": "verified",
@@ -93,7 +93,7 @@
       "verified": 6,
       "statuses": {
         "532 U.S. 268": "verified",
-        "320 F.3d 968": "verified",
+        "320 F.3d 968": "warning",
         "217 F.3d 1234": "verified",
         "281 F.3d 1054": "verified",
         "419 F.3d 885": "verified",
@@ -107,7 +107,7 @@
       "statuses": {
         "42 U.S.C. \u00a7 2000e-3": "verified",
         "555 U.S. 271": "verified",
-        "40 F.3d 982": "verified",
+        "40 F.3d 982": "warning",
         "548 U.S. 53": "verified",
         "570 U.S. 338": "verified"
       }
@@ -139,11 +139,11 @@
       "verified": 6,
       "statuses": {
         "42 U.S.C. \u00a7 2000e-3": "verified",
-        "399 F.3d 601": "verified",
+        "399 F.3d 601": "warning",
         "555 U.S. 271": "verified",
         "548 U.S. 53": "verified",
         "570 U.S. 338": "verified",
-        "719 F.3d 356": "verified"
+        "719 F.3d 356": "warning"
       }
     },
     {
@@ -185,7 +185,7 @@
       "statuses": {
         "548 U.S. 53": "verified",
         "570 U.S. 338": "verified",
-        "809 F.2d 1371": "verified",
+        "809 F.2d 1371": "warning",
         "532 U.S. 268": "verified",
         "411 U.S. 792": "verified",
         "450 U.S. 248": "verified"
@@ -199,14 +199,14 @@
         "548 U.S. 53": "verified",
         "217 F.3d 1234": "verified",
         "339 F.3d 792": "verified",
-        "468 F.3d 528": "verified",
-        "217 F.3d 1104": "verified"
+        "468 F.3d 528": "warning",
+        "217 F.3d 1104": "warning"
       }
     },
     {
       "id": "G018",
       "citations": 6,
-      "verified": 6,
+      "verified": 5,
       "statuses": {
         "42 U.S.C. \u00a7 2000e-3": "verified",
         "548 U.S. 53": "verified",
@@ -222,9 +222,9 @@
       "statuses": {
         "42 U.S.C. \u00a7 2000e-3": "verified",
         "555 U.S. 271": "verified",
-        "335 F.3d 195": "verified",
-        "420 F.3d 166": "verified",
-        "118 F.3d 671": "verified",
+        "335 F.3d 195": "warning",
+        "420 F.3d 166": "warning",
+        "118 F.3d 671": "warning",
         "548 U.S. 53": "verified"
       }
     },
@@ -238,7 +238,7 @@
         "450 U.S. 248": "verified",
         "530 U.S. 133": "verified",
         "570 U.S. 338": "verified",
-        "399 F.3d 601": "verified",
+        "399 F.3d 601": "warning",
         "246 F.3d 344": "verified"
       }
     },
@@ -251,7 +251,7 @@
         "450 U.S. 248": "verified",
         "509 U.S. 502": "verified",
         "530 U.S. 133": "verified",
-        "438 U.S. 567": "verified"
+        "438 U.S. 567": "warning"
       }
     },
     {
@@ -285,7 +285,7 @@
       "statuses": {
         "509 U.S. 502": "verified",
         "530 U.S. 133": "verified",
-        "75 F.3d 989": "verified"
+        "75 F.3d 989": "warning"
       }
     },
     {
@@ -306,8 +306,8 @@
       "statuses": {
         "534 U.S. 506": "verified",
         "411 U.S. 792": "verified",
-        "550 U.S. 544": "verified",
-        "556 U.S. 662": "verified"
+        "550 U.S. 544": "warning",
+        "556 U.S. 662": "warning"
       }
     },
     {
@@ -317,7 +317,7 @@
       "statuses": {
         "539 U.S. 90": "verified",
         "42 U.S.C. \u00a7 2000e-2": "verified",
-        "299 F.3d 838": "verified",
+        "299 F.3d 838": "warning",
         "490 U.S. 228": "warning",
         "557 U.S. 167": "verified"
       }
@@ -342,7 +342,7 @@
       "verified": 4,
       "statuses": {
         "490 U.S. 228": "warning",
-        "256 F.3d 864": "verified",
+        "256 F.3d 864": "warning",
         "590 U.S. 644": "verified"
       }
     },
@@ -354,9 +354,9 @@
         "590 U.S. 644": "verified",
         "42 U.S.C. \u00a7 2000e-2": "blocked",
         "42 U.S.C. \u00a7 2000e-1": "verified",
-        "483 U.S. 327": "verified",
-        "573 U.S. 682": "unresolved",
-        "591 U.S. 732": "unresolved"
+        "483 U.S. 327": "warning",
+        "573 U.S. 682": "blocked",
+        "591 U.S. 732": "blocked"
       }
     },
     {
@@ -392,9 +392,9 @@
     {
       "id": "G034",
       "citations": 5,
-      "verified": 5,
+      "verified": 4,
       "statuses": {
-        "411 U.S. 792": "verified",
+        "411 U.S. 792": "warning",
         "245 F.3d 507": "verified",
         "574 F.3d 253": "verified",
         "450 U.S. 248": "verified"
@@ -406,18 +406,18 @@
       "verified": 3,
       "statuses": {
         "411 U.S. 792": "verified",
-        "219 F.3d 612": "verified",
+        "219 F.3d 612": "warning",
         "245 F.3d 507": "verified"
       }
     },
     {
       "id": "G036",
       "citations": 4,
-      "verified": 3,
+      "verified": 4,
       "statuses": {
         "492 F.3d 551": "verified",
-        "315 F.3d 470": "verified",
-        "79 F.4th 494": "unresolved",
+        "315 F.3d 470": "warning",
+        "79 F.4th 494": "warning",
         "548 U.S. 53": "verified"
       }
     },
@@ -429,7 +429,7 @@
         "557 U.S. 557": "warning",
         "401 U.S. 424": "verified",
         "490 U.S. 642": "warning",
-        "480 U.S. 616": "verified"
+        "480 U.S. 616": "warning"
       }
     },
     {
@@ -450,9 +450,9 @@
       "verified": 7,
       "statuses": {
         "401 U.S. 424": "verified",
-        "422 U.S. 405": "verified",
-        "433 U.S. 321": "verified",
-        "487 U.S. 977": "verified",
+        "422 U.S. 405": "warning",
+        "433 U.S. 321": "warning",
+        "487 U.S. 977": "warning",
         "42 U.S.C. \u00a7 2000e-2": "verified",
         "490 U.S. 642": "warning",
         "557 U.S. 557": "verified"
@@ -463,11 +463,11 @@
       "citations": 6,
       "verified": 6,
       "statuses": {
-        "994 F.2d 703": "verified",
+        "994 F.2d 703": "warning",
         "424 F.3d 1027": "verified",
-        "892 F.2d 1434": "verified",
+        "892 F.2d 1434": "warning",
         "360 F.3d 1103": "verified",
-        "658 F.3d 1108": "verified",
+        "658 F.3d 1108": "warning",
         "539 U.S. 90": "verified"
       }
     },
@@ -499,8 +499,8 @@
       "verified": 3,
       "statuses": {
         "513 U.S. 352": "verified",
-        "79 F.3d 756": "verified",
-        "535 U.S. 137": "verified"
+        "79 F.3d 756": "warning",
+        "535 U.S. 137": "warning"
       }
     },
     {
@@ -551,11 +551,11 @@
     {
       "id": "G048",
       "citations": 7,
-      "verified": 7,
+      "verified": 6,
       "statuses": {
-        "42 U.S.C. \u00a7 2000e-2": "verified",
+        "42 U.S.C. \u00a7 2000e-2": "warning",
         "523 U.S. 75": "warning",
-        "510 U.S. 17": "verified"
+        "510 U.S. 17": "warning"
       }
     },
     {
@@ -611,7 +611,7 @@
         "477 U.S. 57": "verified",
         "510 U.S. 17": "verified",
         "532 U.S. 268": "verified",
-        "168 F.3d 871": "verified"
+        "168 F.3d 871": "warning"
       }
     },
     {
@@ -654,7 +654,7 @@
         "360 F.3d 1103": "warning",
         "339 F.3d 792": "warning",
         "477 U.S. 57": "verified",
-        "847 F.3d 678": "verified",
+        "847 F.3d 678": "warning",
         "524 U.S. 775": "verified",
         "524 U.S. 742": "verified",
         "570 U.S. 421": "verified"
@@ -707,7 +707,7 @@
       "citations": 5,
       "verified": 5,
       "statuses": {
-        "432 U.S. 63": "verified",
+        "432 U.S. 63": "warning",
         "600 U.S. 447": "verified"
       }
     },
@@ -718,7 +718,7 @@
       "statuses": {
         "42 U.S.C. \u00a7 2000e": "verified",
         "575 U.S. 768": "verified",
-        "731 F.3d 1106": "verified"
+        "731 F.3d 1106": "warning"
       }
     },
     {
@@ -727,7 +727,7 @@
       "verified": 3,
       "statuses": {
         "575 U.S. 768": "verified",
-        "432 U.S. 63": "verified",
+        "432 U.S. 63": "warning",
         "600 U.S. 447": "verified"
       }
     },
@@ -739,10 +739,10 @@
         "42 U.S.C. \u00a7 2000e": "verified",
         "600 U.S. 447": "verified",
         "432 U.S. 63": "blocked",
-        "880 F.3d 544": "verified",
+        "880 F.3d 544": "warning",
         "358 F.3d 599": "verified",
         "779 F.3d 1020": "blocked",
-        "859 F.2d 610": "verified"
+        "859 F.2d 610": "warning"
       }
     },
     {
@@ -752,7 +752,7 @@
       "statuses": {
         "42 U.S.C. \u00a7 2000e": "verified",
         "575 U.S. 206": "verified",
-        "717 F.3d 425": "verified"
+        "717 F.3d 425": "warning"
       }
     },
     {
@@ -774,8 +774,8 @@
       "statuses": {
         "536 U.S. 101": "verified",
         "550 U.S. 618": "warning",
-        "449 U.S. 250": "verified",
-        "455 U.S. 385": "verified"
+        "449 U.S. 250": "warning",
+        "455 U.S. 385": "warning"
       }
     },
     {
@@ -784,7 +784,7 @@
       "verified": 5,
       "statuses": {
         "139 S. Ct. 1843": "verified",
-        "455 U.S. 385": "verified",
+        "455 U.S. 385": "warning",
         "546 U.S. 500": "verified"
       }
     },
@@ -794,7 +794,7 @@
       "verified": 5,
       "statuses": {
         "139 S. Ct. 1843": "verified",
-        "455 U.S. 385": "verified"
+        "455 U.S. 385": "warning"
       }
     },
     {
@@ -822,9 +822,9 @@
       "verified": 6,
       "statuses": {
         "42 U.S.C. \u00a7 2000e-5": "verified",
-        "466 U.S. 147": "verified",
-        "455 U.S. 385": "verified",
-        "498 U.S. 89": "verified"
+        "466 U.S. 147": "warning",
+        "455 U.S. 385": "warning",
+        "498 U.S. 89": "warning"
       }
     },
     {
@@ -835,8 +835,8 @@
         "29 C.F.R. \u00a7 1601.12": "verified",
         "552 U.S. 389": "verified",
         "536 U.S. 101": "verified",
-        "455 U.S. 385": "verified",
-        "535 U.S. 106": "verified"
+        "455 U.S. 385": "warning",
+        "535 U.S. 106": "warning"
       }
     },
     {
@@ -857,7 +857,7 @@
       "statuses": {
         "527 U.S. 471": "warning",
         "527 U.S. 516": "warning",
-        "527 U.S. 555": "verified",
+        "527 U.S. 555": "warning",
         "42 U.S.C. \u00a7 12102": "verified",
         "29 C.F.R. \u00a7 1630.2": "verified"
       }
@@ -871,7 +871,7 @@
         "42 U.S.C. \u00a7 12102": "verified",
         "527 U.S. 471": "warning",
         "29 C.F.R. \u00a7 1630.2": "verified",
-        "740 F.3d 325": "verified"
+        "740 F.3d 325": "warning"
       }
     },
     {
@@ -889,11 +889,11 @@
       "verified": 6,
       "statuses": {
         "42 U.S.C. \u00a7 12111": "verified",
-        "130 F.3d 702": "verified",
-        "860 F.3d 785": "verified",
+        "130 F.3d 702": "warning",
+        "860 F.3d 785": "warning",
         "535 U.S. 391": "verified",
         "536 U.S. 73": "verified",
-        "480 U.S. 273": "verified"
+        "480 U.S. 273": "warning"
       }
     },
     {
@@ -902,8 +902,8 @@
       "verified": 3,
       "statuses": {
         "536 U.S. 73": "verified",
-        "480 U.S. 273": "verified",
-        "336 F.3d 1023": "verified"
+        "480 U.S. 273": "warning",
+        "336 F.3d 1023": "warning"
       }
     },
     {
@@ -924,7 +924,7 @@
       "statuses": {
         "535 U.S. 391": "verified",
         "730 F.3d 450": "verified",
-        "773 F.3d 688": "verified",
+        "773 F.3d 688": "warning",
         "570 F.3d 606": "verified",
         "536 U.S. 73": "verified"
       }
@@ -943,7 +943,7 @@
       "verified": 3,
       "statuses": {
         "42 U.S.C. \u00a7 12112": "verified",
-        "178 F.3d 731": "verified"
+        "178 F.3d 731": "warning"
       }
     },
     {
@@ -952,7 +952,7 @@
       "verified": 5,
       "statuses": {
         "42 U.S.C. \u00a7 12111": "verified",
-        "526 U.S. 795": "verified",
+        "526 U.S. 795": "warning",
         "535 U.S. 391": "verified",
         "534 U.S. 184": "warning"
       }
@@ -963,10 +963,10 @@
       "verified": 7,
       "statuses": {
         "42 U.S.C. \u00a7 12111": "verified",
-        "63 F.3d 131": "verified",
-        "44 F.3d 538": "verified",
+        "63 F.3d 131": "warning",
+        "44 F.3d 538": "warning",
         "535 U.S. 391": "verified",
-        "451 F.3d 1078": "verified",
+        "451 F.3d 1078": "warning",
         "536 U.S. 73": "verified"
       }
     },
@@ -975,7 +975,7 @@
       "citations": 6,
       "verified": 6,
       "statuses": {
-        "526 U.S. 795": "verified",
+        "526 U.S. 795": "warning",
         "119 S. Ct. 1597": "verified",
         "143 L. Ed. 2d 966": "verified"
       }
@@ -988,7 +988,7 @@
         "42 U.S.C. \u00a7 12113": "verified",
         "511 F.3d 974": "verified",
         "536 U.S. 73": "verified",
-        "527 U.S. 555": "verified"
+        "527 U.S. 555": "warning"
       }
     },
     {
@@ -996,11 +996,11 @@
       "citations": 6,
       "verified": 6,
       "statuses": {
-        "179 F.3d 297": "verified",
-        "126 F.3d 494": "verified",
-        "158 F.3d 635": "verified",
-        "283 F.3d 561": "verified",
-        "184 F.3d 296": "verified",
+        "179 F.3d 297": "warning",
+        "126 F.3d 494": "warning",
+        "158 F.3d 635": "warning",
+        "283 F.3d 561": "warning",
+        "184 F.3d 296": "warning",
         "570 U.S. 338": "verified"
       }
     },
@@ -1012,8 +1012,8 @@
         "29 C.F.R. \u00a7 1630.2": "verified",
         "42 U.S.C. \u00a7 12111": "verified",
         "535 U.S. 391": "verified",
-        "239 F.3d 1128": "verified",
-        "451 F.3d 1078": "verified"
+        "239 F.3d 1128": "warning",
+        "451 F.3d 1078": "warning"
       }
     },
     {
@@ -1047,7 +1047,7 @@
         "557 U.S. 167": "verified",
         "530 U.S. 133": "verified",
         "29 U.S.C. \u00a7 1140": "unresolved",
-        "498 U.S. 133": "verified"
+        "498 U.S. 133": "warning"
       }
     },
     {
@@ -1058,7 +1058,7 @@
         "517 U.S. 308": "warning",
         "507 U.S. 604": "verified",
         "557 U.S. 167": "verified",
-        "26 F.3d 885": "verified"
+        "26 F.3d 885": "warning"
       }
     },
     {
@@ -1097,9 +1097,9 @@
       "verified": 4,
       "statuses": {
         "528 U.S. 62": "verified",
-        "527 U.S. 706": "verified",
-        "535 U.S. 613": "verified",
-        "538 U.S. 721": "verified"
+        "527 U.S. 706": "warning",
+        "535 U.S. 613": "warning",
+        "538 U.S. 721": "warning"
       }
     },
     {
@@ -1122,7 +1122,7 @@
         "530 U.S. 133": "verified",
         "557 U.S. 167": "verified",
         "309 F.3d 893": "warning",
-        "398 F.3d 345": "verified"
+        "398 F.3d 345": "warning"
       }
     },
     {
