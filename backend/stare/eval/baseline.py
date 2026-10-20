@@ -24,17 +24,18 @@ def score_answers(answers: list[dict], settings: Settings | None = None, provide
     This scores any model, including ones run outside STARE (e.g. a free CLI model), at no cost to STARE."""
     settings = settings or get_settings()
     firewall = CitationFirewall(get_sessionmaker(), settings)
-    total = exportable = blocked = 0
+    total = exportable = 0
     rows = []
+    statuses: list[str] = []  # one per citation occurrence, the same unit as `total`
     for a in answers:
         checks = firewall.verify_text(a["answer"])
         ok = sum(c.exportable for c in checks)
         total += len(checks)
         exportable += ok
-        blocked += sum(c.status == "blocked" for c in checks)
+        statuses += [c.status for c in checks]
         rows.append({"id": a["id"], "citations": len(checks), "verified": ok,
                      "statuses": {c.citation.cite: c.status for c in checks}})
-    statuses = [st for r in rows for st in r["statuses"].values()]
+    blocked = statuses.count("blocked")
     unresolved = statuses.count("unresolved")
     resolved = total - unresolved
     return {

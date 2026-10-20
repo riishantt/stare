@@ -33,6 +33,7 @@ GOLD = REPO_DIR / "data" / "eval" / "gold.jsonl"
 MATA = REPO_DIR / "data" / "eval" / "mata_citations.json"
 PII = REPO_DIR / "data" / "samples" / "pii_seeded"
 OUT_DIR = REPO_DIR / "docs" / "evaluation"
+DRAFTED_FIELDS = ("issue", "rule", "application", "conclusion")  # the memo prose the drafter writes
 
 
 @dataclass
@@ -49,6 +50,10 @@ class QuestionResult:
     missed_expected: list[str] = field(default_factory=list)
     memo_drafted_by: str = ""
     error: str = ""
+    # citations the drafter (LLM or offline) wrote in issue/rule/application/conclusion, counted per occurrence
+    # before the memo Firewall pass, and how many of those were blocked or unresolved there
+    drafted_citations: int = 0
+    drafted_failed: int = 0
 
 
 def load_gold(path: Path = GOLD, limit: int | None = None) -> list[dict]:
@@ -74,10 +79,14 @@ def run_question(q: dict, deps: AgentDeps) -> QuestionResult:
                 for again in (ResearchAgent, PrecedentAgent, OpposingCounselAgent, FirewallAgent):
                     state |= again(deps).run(state)
         state |= MemoAgent(deps).run(state)
+        draft = Memo.model_validate(state["memo"])
         state |= MemoFirewallAgent(deps).run(state)
     except Exception as exc:  # one failing question must not abort the evaluation
         return QuestionResult(q["id"], None, 0, 0, 0, 0, 0, time.perf_counter() - t0, error=f"{type(exc).__name__}: {exc}")
     latency = time.perf_counter() - t0
+    # The question presented comes from the gold set and the adverse-authority list is written by the server
+    # from Firewall-checked authorities, so neither counts as proposed by the drafter.
+    drafted = [c for name in DRAFTED_FIELDS for c in deps.firewall.verify_text(getattr(draft, name) or "")]
 
     ranked = PrecedentAgent(deps).rank(
         [Authority.model_validate(a) for a in state.get("candidates", [])],
@@ -100,6 +109,8 @@ def run_question(q: dict, deps: AgentDeps) -> QuestionResult:
         found_expected=[e for e in expected if norm_cite(e) in top],
         missed_expected=[e for e in expected if norm_cite(e) not in top],
         memo_drafted_by=memo.generated_by,
+        drafted_citations=len(drafted),
+        drafted_failed=sum(not c.exportable for c in drafted),
     )
 
 
@@ -136,6 +147,29 @@ def redaction_coverage() -> dict:
     return out
 
 
+def citation_metrics(ok: list[QuestionResult]) -> dict:
+    """Memo citation metrics over the questions that ran without error. Every count is per occurrence."""
+    cited = sum(r.memo_citations for r in ok)
+    strict = sum(r.memo_verified for r in ok)
+    verified = sum(r.memo_verified + r.memo_warning for r in ok)
+    proposed = cited + sum(r.removed_from_memo for r in ok)
+    drafted = sum(r.drafted_citations for r in ok)
+    return {
+        # over the citations kept in the final memos (after the Firewall removed the failing ones), per occurrence
+        "memo_citations_kept": cited,
+        "memo_citations_verified": strict,
+        "memo_citations_warning": verified - strict,
+        "citation_accuracy_automated": verified / cited if cited else None,  # verified or warning
+        "citation_accuracy_strict": strict / cited if cited else None,  # verified only
+        # earlier definition, kept for comparison with older reports: mixes occurrences with de-duplicated
+        # removals and counts the server-written adverse-authority list
+        "hallucination_rate": (proposed - verified) / proposed if proposed else 0.0,
+        "drafted_citations": drafted,
+        "drafted_citations_failed": sum(r.drafted_failed for r in ok),
+        "hallucination_rate_drafted": sum(r.drafted_failed for r in ok) / drafted if drafted else 0.0,
+    }
+
+
 def evaluate(limit: int | None = None, settings: Settings | None = None, say=lambda msg: None) -> dict:
     settings = settings or get_settings()
     deps = AgentDeps(llm=get_llm(settings), session_factory=get_sessionmaker(), settings=settings)
@@ -147,9 +181,6 @@ def evaluate(limit: int | None = None, settings: Settings | None = None, say=lam
         say(f"{r.id} recall@10={r.recall_at_10} cited={r.memo_citations} verified={r.memo_verified} "
             f"violations={r.export_violations} {r.latency_s:.1f}s {r.error}")
     ok = [r for r in results if not r.error]
-    cited = sum(r.memo_citations for r in ok)
-    verified = sum(r.memo_verified + r.memo_warning for r in ok)
-    proposed = cited + sum(r.removed_from_memo for r in ok)
     latencies = [r.latency_s for r in ok]
     summary = {
         "generated_at": datetime.now(UTC).isoformat(timespec="seconds"),
@@ -164,8 +195,7 @@ def evaluate(limit: int | None = None, settings: Settings | None = None, say=lam
         "questions": len(gold),
         "errors": len(results) - len(ok),
         "retrieval_recall_at_10": mean([r.recall_at_10 for r in ok]),
-        "citation_accuracy_automated": verified / cited if cited else None,
-        "hallucination_rate": (proposed - verified) / proposed if proposed else 0.0,
+        **citation_metrics(ok),
         "unverified_in_export": sum(r.export_violations for r in ok),
         "latency_p95_s": p95(latencies),
         "latency_mean_s": mean(latencies),
@@ -188,7 +218,8 @@ def _support_rows(out_dir: Path) -> list[str]:
     n = r["citations"]
     ok = r["states_rule"] + r["pertinent_weaker_quote"]
     return [
-        f"| Citation accuracy, reviewed: exists **and supports the statement** ({n} citations, [support_review.md](support_review.md)) "
+        f"| Citation accuracy, reviewed: exists **and supports the statement** ({n} citations from the offline run, "
+        f"[support_review.md](support_review.md)) "
         f"| {ok / n:.3f} | ≥ 0.94 |",
         f"| Hallucination rate, reviewed: citations that do not support their statement | {r['not_supporting'] / n:.3f} | ≤ 0.02 |",
     ]
@@ -222,6 +253,7 @@ def write_report(result: dict, out_dir: Path = OUT_DIR) -> Path:
         return f"{v:.1%}" if pct else (f"{v:.3f}" if isinstance(v, float) else str(v))
 
     red = s["redaction"]
+    offline = s["llm_provider"].startswith("offline")
     lines = [
         "# STARE evaluation results",
         "",
@@ -231,30 +263,50 @@ def write_report(result: dict, out_dir: Path = OUT_DIR) -> Path:
                f"{s.get('llm_retries', 0)} retried after an unusable JSON reply; "
                f"{s.get('memos_drafted_by_llm', 0)} of {s['questions'] - s['errors']} memos drafted by the LLM "
                "(the others fell back to the offline drafter)."]
-          if not s["llm_provider"].startswith("offline") else []),
+          if not offline else []),
         "",
         "| Metric | Result | Target (Table 29) |",
         "|---|---|---|",
         f"| Mata fixture: fabricated citations blocked | {s['mata']['fabricated'] - s['mata']['exportable']} of {s['mata']['fabricated']} non-exportable "
         f"({s['mata']['blocked']} blocked, {s['mata']['unresolved']} unresolved) | 6 of 6 |",
         f"| Unverified citations in exported memos | {s['unverified_in_export']} | 0 |",
-        f"| Citation accuracy (automated: exists + quote matches) | {fmt(s['citation_accuracy_automated'])} | ≥ 0.94 |",
-        f"| Hallucination rate (proposed memo citations failing the Firewall) | {fmt(s['hallucination_rate'])} | ≤ 0.02 |",
+        f"| Citation accuracy (automated): kept memo citations that exist and whose quotations match, verified or warning "
+        f"({s.get('memo_citations_kept', 'n/a')} kept) | {fmt(s['citation_accuracy_automated'])} | ≥ 0.94 |",
+        *([f"| Citation accuracy (automated, strict): kept memo citations fully verified, no warning "
+           f"({s['memo_citations_verified']} verified, {s['memo_citations_warning']} warning) | "
+           f"{fmt(s['citation_accuracy_strict'])} | — |"] if "citation_accuracy_strict" in s else []),
+        (f"| Hallucination rate: citations the drafter wrote that the memo Firewall blocked or left unresolved "
+         f"({s['drafted_citations_failed']} of {s['drafted_citations']}) | {fmt(s['hallucination_rate_drafted'])} | ≤ 0.02 |"
+         if "hallucination_rate_drafted" in s else
+         f"| Hallucination rate (proposed memo citations failing the Firewall) | {fmt(s['hallucination_rate'])} | ≤ 0.02 |"),
         f"| Retrieval recall@10 | {fmt(s['retrieval_recall_at_10'])} | ≥ 0.80 |",
         f"| Redaction coverage (auto engine) | {fmt(red['auto']['coverage'], True)} ({red['auto']['redacted']}/{red['auto']['total']}) | 100% |",
         f"| Redaction coverage (regex-only engine) | {fmt(red['regex']['coverage'], True)} ({red['regex']['redacted']}/{red['regex']['total']}) | — |",
         f"| Latency, approved plan to memo (p95) | {fmt(s['latency_p95_s'])} s | < 90 s |",
-        *_support_rows(out_dir),
-        *_baseline_rows(out_dir, s, fmt),
+        # the manual support review and the baseline comparison were made against the offline run
+        *(_support_rows(out_dir) + _baseline_rows(out_dir, s, fmt) if offline else []),
         "",
         "Notes:",
-        "- The automated citation accuracy checks that each citation exists in court records and every quotation matches the "
-        "opinion; the reviewed rows add whether each authority supports its statement (the Table 29 manual check of a 20-question "
-        "sample, every verdict listed in support_review.md; validation with practising lawyers is future scope, Section 7.4).",
-        "- In offline mode the memo is drafted extractively from verified passages, so the hallucination rate measures the "
-        "pipeline's guarantees. The baseline rows score a free general-purpose LLM answering the same questions without "
-        "retrieval (`stare eval baseline --answers`); citations the free CourtListener API could not check (rate limit) "
-        "are counted as unresolved.",
+        "- Citation counts are per occurrence. The automated accuracy is measured over the citations left in the final "
+        "memos, after the Firewall removed failing ones, so it counts warnings (e.g. a near-match quotation or good-law "
+        "status not checked) as accurate; the strict row counts only fully verified citations. The hallucination rate "
+        "counts the citations the drafter (the LLM, or the offline extractive drafter) wrote in the issue, rule, "
+        "application and conclusion, before the memo Firewall pass; the question presented and the adverse-authority "
+        "list are not drafted (they come from the gold question and the Firewall-checked adverse authorities). "
+        "`hallucination_rate` in results.json keeps the earlier definition for comparison with older reports.",
+        *([
+            "- The automated citation accuracy checks that each citation exists in court records and every quotation matches the "
+            "opinion; the reviewed rows add whether each authority supports its statement (the Table 29 manual check of a "
+            "20-question sample, every verdict listed in support_review.md; validation with practising lawyers is future scope, "
+            "Section 7.4).",
+            "- In offline mode the memo is drafted extractively from verified passages, so the hallucination rate measures the "
+            "pipeline's guarantees. The baseline rows score a free general-purpose LLM answering the same questions without "
+            "retrieval (`stare eval baseline --answers`); citations the free CourtListener API could not check (rate limit) "
+            "are counted as unresolved.",
+        ] if offline else [
+            "- The manual support review and the general-purpose LLM baseline were made against the offline run, so they are "
+            "reported with the offline results, not here.",
+        ]),
         "",
         "## Per-question results",
         "",
