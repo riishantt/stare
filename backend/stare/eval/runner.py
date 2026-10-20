@@ -227,7 +227,7 @@ def write_report(result: dict, out_dir: Path = OUT_DIR) -> Path:
         "",
         f"Generated {s['generated_at']} with LLM provider `{s['llm_provider']}`, embedder `{s['embedder']}`, "
         f"reranker `{s['reranker']}`, on {s['questions']} gold questions ({s['errors']} errors).",
-        *(["", f"LLM calls: {s.get('llm_calls', 0)} succeeded, {s.get('llm_failures', 0)} failed, "
+        *(["", f"LLM calls: {s.get('llm_calls', 0)} answered, {s.get('llm_failures', 0)} failed, "
                f"{s.get('llm_retries', 0)} retried after an unusable JSON reply; "
                f"{s.get('memos_drafted_by_llm', 0)} of {s['questions'] - s['errors']} memos drafted by the LLM "
                "(the others fell back to the offline drafter)."]
